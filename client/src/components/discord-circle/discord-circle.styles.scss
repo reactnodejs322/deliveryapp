@@ -1,0 +1,25 @@
+.discord-circle-container {
+  margin-left: 33px;
+  position: relative;
+  top: -5px;
+}
+.online-circle {
+  background: rgb(5, 243, 191);
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  position: relative;
+  box-shadow: 0 0 0 3px black;
+  //   opacity: 0.3;
+  transition: 0.3s;
+}
+.offline-circle {
+  background: rgb(78, 71, 71);
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  position: relative;
+  box-shadow: 0 0 0 3px black;
+  //   opacity: 0.3;
+  transition: 0.3s;
+}

@@ -1,0 +1,51 @@
+{
+  "name": "defiance",
+  "version": "0.1.0",
+  "description": "driver tracking server",
+  "main": "server.js",
+  "author": "F&R TEC",
+  "license": "ISC",
+  "scripts": {
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -t=5000",
+    "test_w": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -w",
+    "unit_test": "cross-env NODE_ENV=test_local nyc -r=html -r=text mocha './test/unit/**' --exit",
+    "int_test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/integration/**' --exit -t=5000",
+    "unit_test_w": "cross-env NODE_ENV=test_local nyc -r=text mocha './test/unit/**' -w",
+    "int_test_w": "cross-env NODE_ENV=test nyc -r=text mocha './test/integration/**' -w"
+  },
+  "engines": {
+    "node": "12.18.2"
+  },
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.15",
+    "@googlemaps/js-api-loader": "^1.11.1",
+    "axios": "^0.21.1",
+    "compression": "^1.7.4",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "create-react-app": "^4.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^4.1.1",
+    "joi": "^17.2.1",
+    "joi-objectid": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.27",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "socket.io": "^3.1.1",
+    "socket.io-client": "^3.1.1",
+    "winston": "^3.3.3",
+    "winston-mongodb": "^5.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0"
+  }
+}

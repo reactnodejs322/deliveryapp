@@ -1,0 +1,6 @@
+const SocketActionTypes = {
+  SET_SOCKET_STORE_NAME: "SET_SOCKET_STORE_NAME",
+  INITALIZE_SOCKET: "INITALIZE_SOCKET",
+  TOGGLE_SOCKET_OFF: "TOGGLE_SOCKET_OFF",
+};
+export default SocketActionTypes;

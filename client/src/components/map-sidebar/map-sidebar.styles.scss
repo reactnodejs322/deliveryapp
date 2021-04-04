@@ -1,0 +1,98 @@
+.map-side-container {
+  position: relative;
+}
+
+.disconnect-container {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.arrow {
+  position: absolute;
+
+  height: 30px;
+  width: 30px;
+  top: 45%;
+  right: 14em;
+  transition: right 1s;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  cursor: pointer;
+  @media screen and (max-width: 670px) {
+    display: none;
+  }
+}
+
+.side-bar {
+  width: 15em;
+  height: 95vh;
+  color: white;
+  background-color: #2f3136;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: auto;
+  transition: width 1s;
+  // for big screen
+  //   @media screen and (min-width: 2000px) {
+  //     width: 38vh;
+  //   }
+  //for small screen
+
+  @media screen and (max-width: 670px) {
+    position: relative;
+    transition: unset;
+    width: unset;
+    height: fit-content;
+  }
+}
+
+.arrow-expanded {
+  cursor: pointer;
+  position: absolute;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  height: 30px;
+  width: 30px;
+  top: 45%;
+  right: 83.5%;
+  transition: right 1s;
+
+  @media screen and (max-width: 1150px) {
+    right: 55em;
+  }
+  @media screen and (max-width: 1000px) {
+    right: 39em;
+  }
+  @media screen and (max-width: 670px) {
+    display: none;
+  }
+}
+.side-bar-expanded {
+  width: 84.5%;
+  transition: width 1s;
+  height: 95vh;
+  color: white;
+  background-color: #2f3136;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: auto;
+
+  @media screen and (max-width: 1150px) {
+    width: 56em;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 40em;
+  }
+  @media screen and (max-width: 670px) {
+    position: relative;
+
+    width: unset;
+    height: fit-content;
+  }
+}

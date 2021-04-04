@@ -1,0 +1,11 @@
+.header {
+  width: 11vh;
+  height: 11vh;
+  margin: auto;
+  text-align: center;
+
+  &__img {
+    height: 70px;
+    width: 70px;
+  }
+}
