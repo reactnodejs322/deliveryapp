@@ -1,19 +1,51 @@
+@import "../../global-css/variables.scss";
 .map-side-container {
   position: relative;
 }
 
-.disconnect-container {
+.top-container {
   display: flex;
   padding-top: 10px;
   padding-bottom: 20px;
-  justify-content: center;
-  align-items: center;
-  overflow-y: hidden;
+  justify-content: space-around;
+}
+.top-container-expanded {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  &__left-section {
+    margin: 1vh;
+    width: 50%;
+  }
+  &__right-section {
+    margin: 1vh;
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.side-bar {
+  width: 15em;
+  height: 95vh;
+  color: white;
+  background-color: $lightdark;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: auto;
+  transition: width 1s;
+
+  @media screen and (max-width: 670px) {
+    position: relative;
+    transition: unset;
+    width: unset;
+    height: fit-content;
+  }
 }
 
 .arrow {
   position: absolute;
-
   height: 30px;
   width: 30px;
   top: 45%;
@@ -25,70 +57,71 @@
   @media screen and (max-width: 670px) {
     display: none;
   }
+ 
 }
 
-.side-bar {
-  width: 15em;
-  height: 95vh;
-  color: white;
-  background-color: #2f3136;
-  position: absolute;
-  top: 0;
-  right: 0;
-  overflow: auto;
-  transition: width 1s;
-  // for big screen
-  //   @media screen and (min-width: 2000px) {
-  //     width: 38vh;
-  //   }
-  //for small screen
-
-  @media screen and (max-width: 670px) {
-    position: relative;
-    transition: unset;
-    width: unset;
-    height: fit-content;
-  }
-}
+// @keyframes rotation {
+//   from {
+//     transform: rotate(180deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
 
 .arrow-expanded {
+  // animation: rotation 0.5s linear;
+
   cursor: pointer;
   position: absolute;
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+  // -webkit-transform: scaleX(-1);
+  // transform: scaleX(-1);
   height: 30px;
   width: 30px;
   top: 45%;
-  right: 83.5%;
+  right: 59%;
   transition: right 1s;
 
   @media screen and (max-width: 1150px) {
-    right: 55em;
+    right: 25em;
   }
-  @media screen and (max-width: 1000px) {
-    right: 39em;
+
+  @media screen and (min-width: 1400px) {
+    right: 59.5%;
+
+   
   }
+  @media screen and (min-width: 2000px) {
+    right: 59.5%;
+
+   
+  }
+  @media screen and (min-width: 2300px) {
+    right: 60%;
+
+   
+  }
+  
+
   @media screen and (max-width: 670px) {
     display: none;
   }
 }
 .side-bar-expanded {
-  width: 84.5%;
+  width: 60.5%;
   transition: width 1s;
   height: 95vh;
   color: white;
-  background-color: #2f3136;
+  background-color: $lightdark;
   position: absolute;
   top: 0;
   right: 0;
   overflow: auto;
 
   @media screen and (max-width: 1150px) {
-    width: 56em;
+    width: 26em;
   }
-  @media screen and (max-width: 1000px) {
-    width: 40em;
-  }
+
   @media screen and (max-width: 670px) {
     position: relative;
 

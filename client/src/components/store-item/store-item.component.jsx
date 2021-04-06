@@ -4,12 +4,11 @@ import "./store-item.styles.scss";
 import { connect } from "react-redux";
 
 import { setConnectedStore } from "../../redux/stores/stores.action";
-import { SocketInitStore } from "../../redux/socket/socket.action";
+import { socketInitStore } from "../../redux/socket/socket.action";
 export const StoreItem = ({
   storeInfo,
-
   setConnectedStore,
-  SocketInitStore,
+  socketInitStore,
 }) => {
   return (
     <div className="storeitem">
@@ -17,7 +16,7 @@ export const StoreItem = ({
       <Button
         onClick={() => {
           setConnectedStore(storeInfo);
-          SocketInitStore(storeInfo);
+          socketInitStore(storeInfo);
         }}
         variant="outlined"
         color="inherit"
@@ -30,7 +29,7 @@ export const StoreItem = ({
 
 const mapDispatchToProps = (dispatch) => ({
   setConnectedStore: (info) => dispatch(setConnectedStore(info)),
-  SocketInitStore: (info) => dispatch(SocketInitStore(info)),
+  socketInitStore: (info) => dispatch(socketInitStore(info)),
 });
 
 export default connect(null, mapDispatchToProps)(StoreItem);

@@ -6,12 +6,17 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { Container, ContainerDriver, ContainerOrder } from "./orders.styles";
 //actions
 import {
-  PresistOrderColumn,
-  PresistAllColumn,
+  persistOrderColumn,
+  persistAllColumn,
 } from "../../redux/orders/orders.action";
-
+//components
 import Column from "../column/column.component";
-const Orders = ({ PresistOrderColumn, PresistAllColumn, currentdragdrop }) => {
+
+export const Orders = ({
+  persistOrderColumn,
+  persistAllColumn,
+  currentdragdrop,
+}) => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
     // if it went out of bounds we don't do anything etheir
@@ -33,7 +38,7 @@ const Orders = ({ PresistOrderColumn, PresistAllColumn, currentdragdrop }) => {
     // If a draggable object remained in the first column
     // we presist the value within the first column
     if (start === finish) {
-      PresistOrderColumn({
+      persistOrderColumn({
         startorderids: start.orderIds,
         start: start,
         source: source,
@@ -42,7 +47,7 @@ const Orders = ({ PresistOrderColumn, PresistAllColumn, currentdragdrop }) => {
       });
       return;
     } else {
-      PresistAllColumn({
+      persistAllColumn({
         startorderids: start.orderIds,
         finishorderids: finish.orderIds,
         source: source,
@@ -54,7 +59,7 @@ const Orders = ({ PresistOrderColumn, PresistAllColumn, currentdragdrop }) => {
     }
   };
   //Array of html elements
-  let drivers = [];
+  let dom_elements_of_drivers = [];
 
   return (
     <div>
@@ -63,19 +68,29 @@ const Orders = ({ PresistOrderColumn, PresistAllColumn, currentdragdrop }) => {
           {currentdragdrop.columnOrder.map((columnId, index) => {
             const column = currentdragdrop.columns[columnId];
             // console.log("error", column.orderIds);
-            const tasks = column.orderIds.map(
+            const orders = column.orderIds.map(
               (orderIds) => currentdragdrop.orders[orderIds]
             );
 
             if (column.id === "column-1") {
               return (
                 <ContainerOrder key={index}>
-                  <Column key={column.id} column={column} tasks={tasks} />
+                  <Column
+                    delete_mark={false}
+                    key={column.id}
+                    column={column}
+                    orders={orders}
+                  />
                 </ContainerOrder>
               );
             } else {
-              drivers.push(
-                <Column key={column.id} column={column} tasks={tasks} />
+              dom_elements_of_drivers.push(
+                <Column
+                  delete_mark={true}
+                  key={column.id}
+                  column={column}
+                  orders={orders}
+                />
               );
             }
             //At the final iteration we want to display the driver in a containerized
@@ -83,7 +98,7 @@ const Orders = ({ PresistOrderColumn, PresistAllColumn, currentdragdrop }) => {
             if (currentdragdrop.columnOrder.length - 1 === index) {
               return (
                 <ContainerDriver key={index}>
-                  {drivers.map((e, i) => e)}
+                  {dom_elements_of_drivers.map((e, i) => e)}
                 </ContainerDriver>
               );
             }
@@ -100,10 +115,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  PresistOrderColumn: (onDragEndProperties) =>
-    dispatch(PresistOrderColumn(onDragEndProperties)),
-  PresistAllColumn: (onDragEndProperties) =>
-    dispatch(PresistAllColumn(onDragEndProperties)),
+  persistOrderColumn: (onDragEndProperties) =>
+    dispatch(persistOrderColumn(onDragEndProperties)),
+  persistAllColumn: (onDragEndProperties) =>
+    dispatch(persistAllColumn(onDragEndProperties)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

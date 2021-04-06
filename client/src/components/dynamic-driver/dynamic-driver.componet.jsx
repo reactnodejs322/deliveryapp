@@ -2,7 +2,7 @@ import React from "react";
 import "./dynamic-driver.styles.scss";
 import MockImage from "./driver.jpg";
 import DiscordCircle from "../discord-circle/discord-circle.component";
-const DynamicDriver = ({
+export const DynamicDriver = ({
   userinfo: { firstName, employeeId, lastName, isActive },
 }) => {
   return (
@@ -18,10 +18,7 @@ const DynamicDriver = ({
         </div>
         <div className="sidecard__content__sub">
           <div className="sidecard__content__sub__text">
-            <span>
-              {employeeId}
-              {/*props.position.timestamp*/}
-            </span>
+            <span>{employeeId}</span>
           </div>
         </div>
       </div>

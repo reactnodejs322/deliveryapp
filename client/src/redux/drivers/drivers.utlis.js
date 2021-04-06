@@ -3,9 +3,9 @@ import axios from "axios";
 
 import { eventChannel } from "redux-saga";
 import {
-  AddActiveDriver,
-  RemoveActiveDriver,
-  SetActiveDriverPosition,
+  addActiveDriver,
+  removeActiveDriver,
+  setActiveDriverPosition,
 } from "./drivers.action";
 
 export function socketDriverOn(socket) {
@@ -14,10 +14,17 @@ export function socketDriverOn(socket) {
       try {
         // data is an array of number of driver ids [12,13,14]
         // this data is being used for an api request to get the driver's Firstname, Lastname
-        const PromisesRequest = ConvertIds(data);
+        const PromisesRequest = ConvertIds(
+          Object.entries(data.users).reduce((drivers, [id, role]) => {
+            if (role === "driver") {
+              drivers.push(id);
+            }
+            return drivers;
+          }, [])
+        );
         // since it's an array of promises then after we requestd the data we put them into redux
         Promise.all(PromisesRequest).then((users) => {
-          emit(AddActiveDriver(users));
+          emit(addActiveDriver(users));
         });
       } catch (err) {
         console.log(
@@ -26,14 +33,12 @@ export function socketDriverOn(socket) {
       }
     });
     //most intensive
-    socket.on("d-position", (position, id, store) => {
-      position["id"] = id;
-      position["store"] = store;
 
-      emit(SetActiveDriverPosition(position));
+    socket.on("d-position", (position) => {
+      emit(setActiveDriverPosition(position));
     });
     socket.on("disconnected-users", (data) => {
-      emit(RemoveActiveDriver(data));
+      emit(removeActiveDriver(data));
     });
     socket.on("disconnect", (e) => {
       console.log(e);

@@ -47,9 +47,10 @@ const driverReducer = (state = INITIAL_STATE, action) => {
       let Driver = state.currentDrivers[index];
 
       let ModifiedDriver;
+
       if (Driver) {
         //Merge Driver and position
-        ModifiedDriver = { ...Driver, ...action.payload.coords };
+        ModifiedDriver = { ...Driver, ...action.payload.position.coords };
       } else {
         return {
           ...state,
@@ -66,8 +67,8 @@ const driverReducer = (state = INITIAL_STATE, action) => {
           ActiveMovingDriver: [ModifiedDriver, ...state.ActiveMovingDriver],
         };
       } else {
+        //if it does exist  than update their position
         state.ActiveMovingDriver.splice(Activeindex, 1);
-
         return {
           ...state,
           position: action.payload,

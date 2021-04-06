@@ -3,13 +3,11 @@ import StoreItem from "../store-item/store-item.component";
 import { connect } from "react-redux";
 import { triggerStores } from "../../redux/stores/stores.action";
 import "./store-list.styles.scss";
-const StoreList = ({ stores, triggerStores }) => {
-  console.log(stores);
-
+export const StoreList = ({ stores, triggerStores }) => {
   useEffect(() => {
     triggerStores();
   }, [triggerStores]);
-
+  
   return (
     <div className="store-list">
       {stores.map((storeinfo, index) => (
