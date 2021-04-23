@@ -23,13 +23,13 @@ const Map = ({
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [markerMap, setMarkerMap] = useState({});
   const [infoOpen, setInfoOpen] = useState(false);
-  
+
   useEffect(() => {
     setSelectedPlace(updated_status_order);
   }, [updated_status_order]);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_google_map_api,
+    googleMapsApiKey: process.env.REACT_APP_MAP,
   });
 
   const markerLoadHandler = (marker, place) => {
