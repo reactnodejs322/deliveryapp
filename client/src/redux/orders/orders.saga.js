@@ -8,22 +8,23 @@ import {
   fork,
   take,
   cancel,
+  race,
 } from "redux-saga/effects";
 //Listener
 import SocketActionTypes from "../socket/socket.types";
 import DriversActionTypes from "../drivers/drivers.types";
 //Functions
-import { fetchOrders, socketOrderOn, disconnect } from "./orders.utils";
+import { socketOrderOn, disconnect, fetchOrders } from "./orders.utils";
 //Actions
 import {
-  addApiOrderSuccessDragDrop,
-  addApiOrderFailureDragDrop,
+  setupCurrentDragDrop,
   deltaDriverDragAndDrop,
   removeDriverDragDrop,
 } from "./orders.action";
 
 export function* read_Emit_Or_Write_Emit(socket) {
   yield fork(read, socket);
+  yield fork(write, socket);
 }
 
 export function* read(socket) {
@@ -31,6 +32,29 @@ export function* read(socket) {
   while (true) {
     let action = yield take(channel);
     yield put(action);
+  }
+}
+
+const driversWithOrdersOnly = ({ payload }) => {
+  return payload.filter((driver) => driver.orders.length > 0);
+};
+
+function* write(socket) {
+  while (true) {
+    // https://hackernoon.com/modelling-common-patterns-with-redux-saga-464a380a37ce
+    // https://medium.com/autodesk-tlv/keep-calm-and-race-on-redux-saga-case-study-1a16d4d7b234
+    // Race Effect Listens to multiple actions
+    // actions and whatever gets called does something
+    const { sendOrderBundle, updateOrder } = yield race({
+      updateOrder: take("SOCKET_ORDER_SEND_UPDATE"),
+      sendOrderBundle: take("SOCKET_ORDER_BUNDLES"),
+    });
+    if (updateOrder) {
+      socket.emit("update-order", updateOrder.payload);
+    }
+    if (sendOrderBundle) {
+      socket.emit("order-bundles", driversWithOrdersOnly(sendOrderBundle));
+    }
   }
 }
 
@@ -48,7 +72,7 @@ export function* orderSocketFlow() {
 
     /* The loop stops here when we listen to when the manager
     is pressing the disconnect button aka listening to socket disconnect action*/
-    yield take(SocketActionTypes.TOGGLE_SOCKET_OFF);
+    yield take(SocketActionTypes.SOCKET_OFF);
 
     /*afterwards we prepare to shutdown the socket gracefully*/
     yield call(disconnect, socket);
@@ -59,40 +83,20 @@ export function* orderSocketFlow() {
 }
 
 //get storename
-const getStoreNameFromReducer = (state) => state.socket.socketStoreName.name; //socket is an Object
+const getStoreNameFromReducer = (state) => state.stores.connectedStore.name; //socket is an Object
 
-// we want to put the orders in the reducer apiorders: {},
-// And we want to to showcase the orders
-// in the ui by placing it in the reducer currentdragdrop: { },
+//setup Order drag and drop
 export function* setupOrderDragDrop() {
+  const orders = yield call(fetchOrders);
 
   const storename = yield select(getStoreNameFromReducer);
 
-  try {
-    //Right Now it's not dynamic so we make api call to Royal Palms
-    const orders = yield call(fetchOrders);
-
-    // we want to pass storeName because we want to specify
-    // what drag and drop to save in dragdropcollections
-    const ordersStoreName = {
+  yield put(
+    setupCurrentDragDrop({
       orders: orders,
       storename: storename,
-    };
-
-    yield put(addApiOrderSuccessDragDrop(ordersStoreName));
-  } catch (error) {
-    const ordersFailure = {
-      orders: [
-      ],
-      storename: storename,
-    };
-    //For any reason if /api/orders fails if the internet goes down we pass a failing order^
-    yield put(addApiOrderFailureDragDrop(ordersFailure));
-    alert("Request to /api/orders has failed please refresh the page");
-  }
-
-
-
+    })
+  );
   yield call(orderSocketFlow);
 }
 
@@ -123,13 +127,13 @@ export function* RemoveDriverDragAndDrop() {
 
 //Start the order socket when a manager hits any store button
 export function* listentoSocket() {
-  yield takeLatest(SocketActionTypes.INITALIZE_SOCKET, setupOrderDragDrop);
+  yield takeLatest(SocketActionTypes.SOCKET_ON, setupOrderDragDrop);
 }
 
 // Listen to when a driver is connecting
 export function* listentoAddActiveDriver() {
   yield takeLatest(
-    DriversActionTypes.ADD_ACTIVE_DRIVER,
+    DriversActionTypes.CURRENT_CONNECTED_DRIVER,
     initalizeDriverDragAndDrop
   );
 }

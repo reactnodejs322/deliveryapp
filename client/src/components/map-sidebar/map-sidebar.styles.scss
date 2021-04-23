@@ -14,10 +14,14 @@
   padding-top: 10px;
   padding-bottom: 20px;
   &__left-section {
+    display: flex;
+    justify-content: center;
+    // background-color: blue;
     margin: 1vh;
     width: 50%;
   }
   &__right-section {
+    // background-color: red;
     margin: 1vh;
     display: flex;
     width: 50%;
@@ -57,7 +61,6 @@
   @media screen and (max-width: 670px) {
     display: none;
   }
- 
 }
 
 // @keyframes rotation {
@@ -86,23 +89,6 @@
     right: 25em;
   }
 
-  @media screen and (min-width: 1400px) {
-    right: 59.5%;
-
-   
-  }
-  @media screen and (min-width: 2000px) {
-    right: 59.5%;
-
-   
-  }
-  @media screen and (min-width: 2300px) {
-    right: 60%;
-
-   
-  }
-  
-
   @media screen and (max-width: 670px) {
     display: none;
   }
@@ -127,5 +113,12 @@
 
     width: unset;
     height: fit-content;
+  }
+  &__driverorder-container {
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+
+    // border-bottom: 1px dotted white;
   }
 }

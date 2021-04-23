@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { eventChannel } from "redux-saga";
 import {
-  addActiveDriver,
+  currentConnectedDriver,
   removeActiveDriver,
   setActiveDriverPosition,
 } from "./drivers.action";
@@ -22,9 +22,10 @@ export function socketDriverOn(socket) {
             return drivers;
           }, [])
         );
+
         // since it's an array of promises then after we requestd the data we put them into redux
-        Promise.all(PromisesRequest).then((users) => {
-          emit(addActiveDriver(users));
+        Promise.all(PromisesRequest).then((drivers) => {
+          emit(currentConnectedDriver(drivers));
         });
       } catch (err) {
         console.log(
@@ -41,7 +42,7 @@ export function socketDriverOn(socket) {
       emit(removeActiveDriver(data));
     });
     socket.on("disconnect", (e) => {
-      console.log(e);
+      console.log("Socket driver", e);
     });
     return () => {
       socket.disconnect();

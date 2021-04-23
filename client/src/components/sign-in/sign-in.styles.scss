@@ -1,0 +1,33 @@
+.sign-in {
+  //   color: black;
+  //   background-color: red;
+  height: 330px;
+  width: 600px;
+  padding: 10px;
+  h2 {
+    margin-bottom: 20px;
+  }
+  @media screen and (max-width: 960px) {
+    height: 400px;
+    width: 330px;
+  }
+  //#36393f
+  form {
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 50px #36393f inset; /* Change the color to your own background color */
+      -webkit-text-fill-color: white;
+    }
+    input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 50px #36393f inset; /* Change the color to your own background color */
+      -webkit-text-fill-color: white;
+    }
+  }
+}
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  @media screen and (max-width: 960px) {
+    // background-color: aqua;
+    flex-direction: column;
+  }
+}

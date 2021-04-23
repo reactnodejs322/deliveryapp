@@ -1,4 +1,4 @@
-import { saveOrders } from "../../redux/orders/orders.action";
+import { saveOrders, sendOrderBundle } from "../../redux/orders/orders.action";
 import { connect } from "react-redux";
 import React from "react";
 import Modal from "@material-ui/core/Modal";
@@ -13,7 +13,11 @@ import {
   OrderNumbersContainer,
 } from "./save-modal-button.styles";
 import { AnimatedPointer } from "../animated-pointers/animated-pointer.component";
-export const SaveModalButton = ({ saveOrders, drivers_with_orders }) => {
+export const SaveModalButton = ({
+  saveOrders,
+  drivers_with_orders,
+  sendOrderBundle,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -27,9 +31,14 @@ export const SaveModalButton = ({ saveOrders, drivers_with_orders }) => {
   };
 
   return (
-    <div>
-      <Button variant="outlined" color="inherit" onClick={handleOpen}>
-        Send
+    <>
+      <Button
+        style={{ margin: "10px" }}
+        variant="outlined"
+        color="inherit"
+        onClick={handleOpen}
+      >
+        Send Orders to Drivers
       </Button>
 
       <Modal
@@ -48,6 +57,7 @@ export const SaveModalButton = ({ saveOrders, drivers_with_orders }) => {
                   style={{ height: "20px" }}
                   variant="outlined"
                   color="inherit"
+                  onClick={() => sendOrderBundle(drivers_with_orders)}
                 >
                   Send
                 </Button>
@@ -81,7 +91,7 @@ export const SaveModalButton = ({ saveOrders, drivers_with_orders }) => {
                     >
                       {driver.orders.map((order, i) => (
                         <OrderNumbersContainer key={i}>
-                          {order.id},
+                          {order.orderNumber},
                         </OrderNumbersContainer>
                       ))}
                     </OrderColumnContainer>
@@ -94,7 +104,7 @@ export const SaveModalButton = ({ saveOrders, drivers_with_orders }) => {
           </div>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 };
 
@@ -104,6 +114,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveOrders: () => dispatch(saveOrders()),
+  sendOrderBundle: (Order_bundle) => dispatch(sendOrderBundle(Order_bundle)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveModalButton);

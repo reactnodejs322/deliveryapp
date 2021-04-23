@@ -1,8 +1,13 @@
 import axios from "axios";
 import { differenceBy } from "lodash";
 import { eventChannel } from "redux-saga";
-import { socketOrderDisplayUpdate } from "./orders.action";
-/*ACTION TYPE FOR "ADD_APIORDER_SUCCESS_DRAG_DROP_TO_COLLECTION"
+import { cloneDeep } from "lodash";
+import {
+  socketOrderNew,
+  socketOrderUpdate,
+  socketOrderDelete,
+} from "./orders.action";
+/*ACTION TYPE FOR "SETUP_CURRENT_DRAG_DROP"
 If a store exist within a draganddropcollection then we leave it as is
 otherwise if the manager clicks on a new store then 
 we generate a newDragAndDrop and add it to draganddrop collectio*/
@@ -12,19 +17,40 @@ export function disconnect(socket) {
 }
 export function socketOrderOn(socket) {
   return eventChannel((emit) => {
-    socket.on("order-display", (updatedOrders) => {
-     
-      emit(socketOrderDisplayUpdate(updatedOrders));
+    socket.on("orders-new", (New_Order) => {
+      console.log('socket.on("orders-new")', New_Order);
+      emit(socketOrderNew(New_Order));
+    });
+    socket.on("order-updates", (Order_With_Updated_Status) => {
+      console.log('socket.on("order-updates")', Order_With_Updated_Status);
+      emit(socketOrderUpdate(Order_With_Updated_Status));
+    });
+
+    socket.on("order-delete", (Delete_Order) => {
+      console.log('socket.on("order-delete")', Delete_Order);
+      emit(socketOrderDelete(Delete_Order));
     });
 
     socket.on("disconnect", (e) => {
-      console.log(e);
+      console.log("Order Socket", e);
     });
     return () => {
       socket.disconnect();
     };
   });
 }
+
+export const putOrderCurrentDragDrop = (currentdragdrop, orders) => {
+  orders.forEach(({ orderNumber, ...data }, index) => {
+    currentdragdrop.orders[orderNumber.toString()] = {
+      id: orderNumber.toString(),
+      ...data,
+    };
+    currentdragdrop.columns["column-1"].orderIds.push(orderNumber.toString());
+  });
+
+  return { ...currentdragdrop };
+};
 
 export const addDragDropToCollection = (
   dragdropcollection,
@@ -42,13 +68,14 @@ export const addDragDropToCollection = (
   return [...dragdropcollection, createNewDragDrop(NewOrders, NewStoreName)];
 };
 
-/* ACTION TYPE FOR "ADD_APIORDER_SUCCESS_DRAG_DROP_TO_COLLECTION"
+/* ACTION TYPE FOR "SETUP_CURRENT_DRAG_DROP"
 We look for the current Draganddrop from a specific store
 by iterating through the Draganddropcollection.
 if we find it then we set the currentdragdrop
 Otherwise we create a newdragdrop and set it to the currentdragdrop*/
 export const getCurrentDragandDrop = (
   dragdropcollection,
+  currentdragdrop,
   { orders: NewOrders, storename: NewStoreName }
 ) => {
   const existingDragDrop = dragdropcollection.find(
@@ -57,7 +84,14 @@ export const getCurrentDragandDrop = (
   // if the drag and drop is in the collection?
   if (existingDragDrop) return existingDragDrop;
 
-  return createNewDragDrop(NewOrders, NewStoreName);
+  const newDragdrop = cloneDeep(currentdragdrop);
+  NewOrders.forEach((order, i) => {
+    newDragdrop.orders[order._id] = order;
+    newDragdrop.columns["column-1"].orderIds.push(order._id);
+  });
+  newDragdrop.storename = NewStoreName;
+
+  return newDragdrop;
 };
 
 //ACTION TYPE FOR "PERSIST_ORDER_COLUMN"
@@ -312,11 +346,11 @@ export const removeorderfromDriver = (for_deletion, currentdragdrop) => {
     ...currentdragdrop.columns[for_deletion.driverid], //loop up and grab it's data
     // delete the orderNumber in the array
     orderIds: currentdragdrop.columns[for_deletion.driverid].orderIds.filter(
-      (item) => item !== for_deletion.orderid
+      (item) => item !== for_deletion._id
     ),
   };
   // push the orderNumber back in the order's column
-  currentdragdrop.columns["column-1"].orderIds.push(for_deletion.orderid);
+  currentdragdrop.columns["column-1"].orderIds.push(for_deletion._id);
   //return a new object because ui needs  to detect changes in memory
   return { ...currentdragdrop };
 };
@@ -325,6 +359,6 @@ export const fetchOrders = () => {
   var CancelToken = axios.CancelToken;
   var { token } = CancelToken.source();
   return axios
-    .get("/api/orders", { cancelToken: token })
+    .get("/api/orders/", { cancelToken: token })
     .then((res) => res.data);
 };

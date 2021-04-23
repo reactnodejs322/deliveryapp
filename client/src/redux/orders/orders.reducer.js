@@ -1,5 +1,6 @@
 import OrdersActionTypes from "./orders.types";
 import {
+  // putOrderCurrentDragDrop,
   addDragDropToCollection,
   getCurrentDragandDrop,
   persistOrderColumn,
@@ -11,9 +12,11 @@ import {
   removeorderfromDriver,
 } from "./orders.utils";
 
+import { cloneDeep } from "lodash";
+
 const INITIAL_STATE = {
   showorders: false, // red arrow component ui changes
-  apiorders: [],
+
   dragdropcollection: [], // disconnecting and reconnect things will be saved
 
   /*orderIds array dynamically changes when a order is being dragged to the columns key
@@ -30,6 +33,7 @@ const INITIAL_STATE = {
     "4545": { id: "4545", orderIds: [], title: "Orders" },
   },
   */
+  apiorders: [],
   currentdragdrop: {
     columnOrder: ["column-1"],
     columns: { "column-1": { id: "column-1", orderIds: [], title: "Orders" } },
@@ -37,21 +41,174 @@ const INITIAL_STATE = {
     storename: "",
   },
   drivers_with_orders: [],
+  updated_status_order: {},
 };
 
 const ordersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case OrdersActionTypes.ORDER_DISPLAY_SOCKET_UPDATE:
-      console.log(action.payload);
-      const newOrderDragDrop = { ...state.currentdragdrop };
+    case OrdersActionTypes.SOCKET_ORDER_DELETE:
+      let deleteOrderCurrentdragdrop = cloneDeep(state.currentdragdrop);
+      let DeleteApiOrders = cloneDeep(state.apiorders);
+      const {
+        [`${action.payload._id}`]: order,
+      } = deleteOrderCurrentdragdrop.orders;
+      //edge case if  order never existed then dont crash the ui
+      if (order === undefined) {
+        alert("tried deleting an order that did not exist");
+        return { ...state };
+      }
+
+      //Lives in Some driver Column
+      if (order.livesInColumn) {
+        const { livesInColumn } = deleteOrderCurrentdragdrop.orders[
+          action.payload._id
+        ];
+        deleteOrderCurrentdragdrop.columns[
+          livesInColumn
+        ].orderIds = deleteOrderCurrentdragdrop.columns[
+          livesInColumn
+        ].orderIds.filter((mongoId) => mongoId !== action.payload._id);
+        console.log("Order lives in Column", deleteOrderCurrentdragdrop);
+      } else {
+        //Lives in Unassigned Order
+        const { orderIds } = deleteOrderCurrentdragdrop.columns["column-1"];
+
+        deleteOrderCurrentdragdrop.columns[
+          "column-1"
+        ].orderIds = orderIds.filter(
+          (mongoId) => mongoId !== action.payload._id
+        );
+      }
+      //delete order
+      delete deleteOrderCurrentdragdrop.orders[action.payload._id];
+
+      //update APIORDERS
+
+      DeleteApiOrders = DeleteApiOrders.filter(
+        (order) => order._id !== action.payload._id
+      );
+      return {
+        ...state,
+        currentdragdrop: deleteOrderCurrentdragdrop,
+        apiorders: DeleteApiOrders,
+      };
+
+    case OrdersActionTypes.SOCKET_ORDER_UPDATE:
+      let UpdateOrderStatusCurrentDragdrop = cloneDeep(state.currentdragdrop);
+      let UpdateApiOrders = cloneDeep(state.apiorders);
+
+      const {
+        [`${action.payload._id}`]: OrderInDnd,
+      } = UpdateOrderStatusCurrentDragdrop.orders;
+      //edge case if  order never existed then dont crash the ui
+      if (OrderInDnd === undefined) {
+        alert("tried updating an order that did not exist");
+        return { ...state };
+      }
+
+      if (action.payload.status === "completed") {
+        //We need to find where the order lives in for we can delete it
+
+        //Lives in Some driver Column
+        if (OrderInDnd.livesInColumn) {
+          const { livesInColumn } = UpdateOrderStatusCurrentDragdrop.orders[
+            action.payload._id
+          ];
+          UpdateOrderStatusCurrentDragdrop.columns[
+            livesInColumn
+          ].orderIds = UpdateOrderStatusCurrentDragdrop.columns[
+            livesInColumn
+          ].orderIds.filter((mongoId) => mongoId !== action.payload._id);
+          console.log(
+            "Order lives in Column",
+            UpdateOrderStatusCurrentDragdrop
+          );
+        } else {
+          //Lives in Unassigned Order
+          const { orderIds } = UpdateOrderStatusCurrentDragdrop.columns[
+            "column-1"
+          ];
+
+          UpdateOrderStatusCurrentDragdrop.columns[
+            "column-1"
+          ].orderIds = orderIds.filter(
+            (mongoId) => mongoId !== action.payload._id
+          );
+        }
+        //delete order
+        delete UpdateOrderStatusCurrentDragdrop.orders[action.payload._id];
+
+        //update APIORDERS
+
+        UpdateApiOrders = UpdateApiOrders.filter(
+          (order) => order._id !== action.payload._id
+        );
+      }
+      // update Orders text doesnt matter what column it lives in
+      if (action.payload.status === "on_route") {
+        //update the drag drop order status
+        UpdateOrderStatusCurrentDragdrop.orders[action.payload._id].status =
+          action.payload.status;
+        //update the api order status for the map
+        UpdateApiOrders = UpdateApiOrders.map((order) => {
+          if (order._id === action.payload._id) {
+            return {
+              ...order,
+              status: "on_route",
+            };
+          }
+          return order;
+        });
+      }
 
       return {
         ...state,
-        apiorders: [...action.payload],
-        // currentdragdrop: completed_order_currentdragdrop,
+        currentdragdrop: UpdateOrderStatusCurrentDragdrop,
+        apiorders: UpdateApiOrders,
+        updated_status_order: action.payload,
       };
-    //actiontype addApiOrderSuccessDragDrop
-    case OrdersActionTypes.ADD_APIORDER_SUCCESS_DRAG_DROP_TO_COLLECTION:
+
+    case OrdersActionTypes.SOCKET_ORDER_NEW:
+      const new_order = action.payload;
+      console.log("SOCKET_ORDER_NEW", action.payload);
+      let OrderNewCurrentDragdrop = { ...state.currentdragdrop };
+      OrderNewCurrentDragdrop.orders[new_order._id] = new_order;
+
+      OrderNewCurrentDragdrop.columns["column-1"].orderIds.push(new_order._id);
+
+      //Never duplicate
+      OrderNewCurrentDragdrop.columns["column-1"].orderIds = [
+        ...new Set(OrderNewCurrentDragdrop.columns["column-1"].orderIds),
+      ];
+
+      /*
+      To Avoid duplicates
+      In a scenerio where Socket Order new gives  the same order twice
+      
+      var setObj = new Set(); // create key value pair from array of array
+
+      var result = arrOfObj.reduce((acc,item)=>{
+      if(!setObj.has(item.id)){
+      setObj.add(item.id,item)
+      acc.push(item)
+      }
+      return acc;
+      },[]);//converting back to array from mapobject
+
+      console.log(result); //[{"id":1,"name":"abc","age":27},{"id":2,"name":"pqr","age":27}]
+      */
+
+      return {
+        ...state,
+        apiorders: [...state.apiorders, action.payload],
+        currentdragdrop: OrderNewCurrentDragdrop,
+        // dragdropcollection: saveDragDropCollection(
+        //   state.dragdropcollection,
+        //   newOrderDragDrop
+        // ),
+      };
+    //actiontype setupCurrentDragDrop
+    case OrdersActionTypes.SETUP_CURRENT_DRAG_DROP:
       return {
         ...state,
         apiorders: action.payload.orders,
@@ -61,6 +218,7 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
         ),
         currentdragdrop: getCurrentDragandDrop(
           state.dragdropcollection,
+          state.currentdragdrop,
           action.payload
         ),
       };
@@ -203,12 +361,12 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
         ),
       };
     //UI UPDATES for expanding and compressing side bar
-    case OrdersActionTypes.ORDERS_SOCKET_ON:
+    case OrdersActionTypes.EXPAND_ORDER_DRAG_DROP_SIDEBAR:
       return {
         ...state,
         showorders: true,
       };
-    case OrdersActionTypes.ORDERS_SOCKET_OFF:
+    case OrdersActionTypes.COMPRESS_ORDER_DRAG_DROP_SIDEBAR:
       return {
         ...state,
         showorders: false,

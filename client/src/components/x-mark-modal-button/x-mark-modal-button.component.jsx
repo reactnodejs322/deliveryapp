@@ -57,7 +57,7 @@ export const XmarkModalButton = ({
           <div className={classes.paper}>
             <h2 id="spring-modal-title">
               Unassign {clicked_deletion.drivername}'s order{" "}
-              {clicked_deletion.orderid} ?
+              {clicked_deletion.orderNumber} ?
             </h2>
 
             <div className="xmark-popup-buttons">

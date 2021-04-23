@@ -1,14 +1,14 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 //styling
-import { ordersSocketOff } from "../../redux/orders/orders.action";
+import { compressOrderDragDropSideBar } from "../../redux/orders/orders.action";
 import { Fade, useStyles } from "./arrow-expanded-modal-button.styles";
 import "./arrow-modal-expanded-button.styles.scss";
 import { connect } from "react-redux";
 import { discardOrderChanges } from "../../redux/orders/orders.action";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import globalcss from "../../global-css/styled-component-variable";
+
 /*
 The reason why this modal is Odd
 is because animation were not working within mapsidebar conditionalloading
@@ -31,22 +31,20 @@ export const useCustomMarginButton = makeStyles({
   label: {},
 });
 export const ArrowModalButton = ({
-  
   //modal logic
   show_arrow_modal,
   handleClose,
   discardOrderChanges,
-  ordersSocketOff,
+  compressOrderDragDropSideBar,
 }) => {
   const classes = useStyles();
   const discardorderChanges = () => {
     discardOrderChanges();
-    ordersSocketOff();
+    compressOrderDragDropSideBar();
     handleClose();
   };
 
   const classesButton = useCustomMarginButton();
- 
 
   return (
     <div>
@@ -96,10 +94,9 @@ export const ArrowModalButton = ({
   );
 };
 
-
 const mapDispatchToProps = (dispatch) => ({
   discardOrderChanges: () => dispatch(discardOrderChanges()),
-  ordersSocketOff: () => dispatch(ordersSocketOff()),
+  compressOrderDragDropSideBar: () => dispatch(compressOrderDragDropSideBar()),
 });
 
 export default connect(null, mapDispatchToProps)(ArrowModalButton);

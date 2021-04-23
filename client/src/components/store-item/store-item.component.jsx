@@ -4,19 +4,21 @@ import "./store-item.styles.scss";
 import { connect } from "react-redux";
 
 import { setConnectedStore } from "../../redux/stores/stores.action";
-import { socketInitStore } from "../../redux/socket/socket.action";
+
+import { showDriverPanel } from "../../redux/drivers/drivers.action";
 export const StoreItem = ({
   storeInfo,
   setConnectedStore,
-  socketInitStore,
+  showDriverPanel,
 }) => {
   return (
     <div className="storeitem">
       {/* <div className="storeitem storeitem--text"></div> */}
       <Button
         onClick={() => {
+          //for google map to display the area
           setConnectedStore(storeInfo);
-          socketInitStore(storeInfo);
+          showDriverPanel();
         }}
         variant="outlined"
         color="inherit"
@@ -28,8 +30,11 @@ export const StoreItem = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  //for google map to display the area
   setConnectedStore: (info) => dispatch(setConnectedStore(info)),
-  socketInitStore: (info) => dispatch(socketInitStore(info)),
+
+  // to turn the store button panel into driver panel
+  showDriverPanel: () => dispatch(showDriverPanel()),
 });
 
 export default connect(null, mapDispatchToProps)(StoreItem);

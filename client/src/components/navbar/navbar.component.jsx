@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -18,17 +18,19 @@ const useStyles = makeStyles({
   },
 });
 let directory = {
-  "/": 0,
-  // "/missioncontrol": 1,
-  "/signin": 1,
-  "/signup": 2,
+  "/missioncontrol": 0,
+  "/settings": 1,
+  "/": 1,
 };
-export const NavBar = ({ history }) => {
+export const NavBar = ({ history, currentUser }) => {
   const classes = useStyles();
   const location = useLocation();
   const [value, setValue] = React.useState(directory[`${location.pathname}`]);
-
+  useEffect(() => {
+    setValue(directory[`${location.pathname}`]);
+  }, [location.pathname]);
   const handleChange = (event, newValue) => {
+    if (!currentUser) return;
     setValue(newValue);
   };
 
@@ -46,15 +48,15 @@ export const NavBar = ({ history }) => {
         >
           <Tab
             data-test="dateTab1"
-            onClick={() => history.push("/")}
+            onClick={() => history.push("/missioncontrol")}
             label="MAP"
           />
-          {/* <Tab
-            data-test="dateTab2"
-            onClick={() => history.push("/")}
-            label="HOME"
-          /> */}
           <Tab
+            data-test="dateTab2"
+            onClick={() => history.push("/settings")}
+            label="SETTINGS"
+          />
+          {/* <Tab
             data-test="dateTab3"
             style={{ width: "20vh" }}
             onClick={() => history.push("/signin")}
@@ -65,7 +67,7 @@ export const NavBar = ({ history }) => {
             style={{ width: "20vh" }}
             onClick={() => history.push("/signup")}
             label="signup"
-          />
+          /> */}
         </Tabs>
       </Paper>
     </div>

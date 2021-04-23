@@ -1,19 +1,21 @@
-import { all, call, put, takeLatest } from "redux-saga/effects";
-import SocketActionTypes from "./socket.types";
-
-import { putSocketInReducer } from "./socket.action";
+import { all, call, put, takeLatest, select } from "redux-saga/effects";
+import StoresActionTypes from "../stores/stores.types";
+import { socketOn } from "./socket.action";
 import { Connect_To_Socket_With_StoreId } from "./socket.utils";
 
-export function* setSocket({ payload: { storeId } }) {
+//when the user clicks on a store
+export const getUserOnClickStore = (state) => state.stores.connectedStore;
+
+export function* setSocket() {
+  const connectedStore = yield select(getUserOnClickStore);
   const socket = yield call(Connect_To_Socket_With_StoreId, {
-    storeId: storeId,
+    storeId: connectedStore.storeId,
   });
-  //Rember to do a try and catch with this
-  yield put(putSocketInReducer(socket));
+  yield put(socketOn(socket));
 }
-//SET_SOCKET_STORE_NAME is being listened from store-item component
+
 export function* onSetSocket() {
-  yield takeLatest(SocketActionTypes.SET_SOCKET_STORE_NAME, setSocket);
+  yield takeLatest(StoresActionTypes.CONNECTED_STORE, setSocket);
 }
 
 export function* socketSagas() {

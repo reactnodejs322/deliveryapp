@@ -22,7 +22,7 @@ export function* driversSagas() {
 /* We listen to when the manager clicks a on a store and starts the generator function
 driverSocketFlow */
 export function* listenToSocket() {
-  yield takeLatest(SocketActionTypes.INITALIZE_SOCKET, driverSocketFlow);
+  yield takeLatest(SocketActionTypes.SOCKET_ON, driverSocketFlow);
 }
 
 /*First We need to retrieve data from the socket reducer*/
@@ -42,7 +42,7 @@ export function* driverSocketFlow() {
 
     /* The loop stops here when we listen to when the manager
     is pressing the disconnect button aka listening to socket disconnect action*/
-    yield take(SocketActionTypes.TOGGLE_SOCKET_OFF);
+    yield take(SocketActionTypes.SOCKET_OFF);
 
     /*afterwards we prepare to shutdown the socket gracefully*/
     yield call(disconnect, socket);

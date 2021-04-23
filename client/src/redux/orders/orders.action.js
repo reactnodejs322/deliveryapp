@@ -1,14 +1,37 @@
 import OrdersActionTypes from "./orders.types";
+export const socketSendOrderUpdate = (Order) => ({
+  type: OrdersActionTypes.SOCKET_ORDER_SEND_UPDATE,
+  payload: Order,
+});
+
+//
+export const sendOrderBundle = (Order_Bundle) => ({
+  type: OrdersActionTypes.SOCKET_ORDER_BUNDLES,
+  payload: Order_Bundle,
+});
 
 //  when api order succeeds add it to currentdragdrop reducer
-export const addApiOrderSuccessDragDrop = (OrdersAndStore) => ({
-  type: OrdersActionTypes.ADD_APIORDER_SUCCESS_DRAG_DROP_TO_COLLECTION,
+export const setupCurrentDragDrop = (OrdersAndStore) => ({
+  type: OrdersActionTypes.SETUP_CURRENT_DRAG_DROP,
   payload: OrdersAndStore,
 });
 //when socket gives an order update
-export const socketOrderDisplayUpdate = (driver_completed_order) => ({
-  type: OrdersActionTypes.ORDER_DISPLAY_SOCKET_UPDATE,
-  payload: driver_completed_order,
+export const socketOrderNew = (New_Order) => ({
+  type: OrdersActionTypes.SOCKET_ORDER_NEW,
+  payload: New_Order,
+});
+
+//when socket gives an order update changes the order STATUS
+// if status = completed -> delete
+// if status = onroute -> change text
+export const socketOrderUpdate = (Order_With_Updated_Status) => ({
+  type: OrdersActionTypes.SOCKET_ORDER_UPDATE,
+  payload: Order_With_Updated_Status,
+});
+
+export const socketOrderDelete = (Delete_Order) => ({
+  type: OrdersActionTypes.SOCKET_ORDER_DELETE,
+  payload: Delete_Order,
 });
 
 // when api order fails add custom failure to currentdragdrop reducer
@@ -51,10 +74,9 @@ export const discardOrderChanges = () => ({
 });
 
 // UI CASES for expanded the mapsidebar-component and compressing
-export const ordersSocketOn = () => ({
-  type: OrdersActionTypes.ORDERS_SOCKET_ON,
+export const expandOrderDragDropSideBar = () => ({
+  type: OrdersActionTypes.EXPAND_ORDER_DRAG_DROP_SIDEBAR,
 });
-export const ordersSocketOff = (arrow_modal_bool) => ({
-  type: OrdersActionTypes.ORDERS_SOCKET_OFF,
-  payload: arrow_modal_bool,
+export const compressOrderDragDropSideBar = () => ({
+  type: OrdersActionTypes.COMPRESS_ORDER_DRAG_DROP_SIDEBAR,
 });
