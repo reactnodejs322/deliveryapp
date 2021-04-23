@@ -30,7 +30,7 @@ export const CustomButton = ({
   ...props
 }) => {
   // console.log(onClickFunctionProp);
-  console.log(width);
+
   const classes = CustomButtonStyles({
     color: color,
     margin: margin,

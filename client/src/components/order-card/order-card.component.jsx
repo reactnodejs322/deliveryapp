@@ -24,12 +24,7 @@ export const theme = {
   height: "130px",
 };
 
-const OrderCard = ({
-  order = {},
-  socketSendOrderUpdate,
-  changeAllApiOrderState,
-  ...props
-}) => {
+const OrderCard = ({ order = {}, onClickFunctions = () => {}, ...props }) => {
   const classes = useIconStyles();
   const classesAddress = useIconAddressStyles();
   const convertMiltaryTimeToStandard = ({ hour, minute } = {}) => {
@@ -80,12 +75,7 @@ const OrderCard = ({
           <OrderTitle>Order</OrderTitle>
           <OrderNumber>{order.orderNumber}</OrderNumber>
           {/* you should make this resuable somehow here */}
-          <XMarkContainer
-            onClick={() => {
-              socketSendOrderUpdate(order);
-              changeAllApiOrderState(order);
-            }}
-          >
+          <XMarkContainer onClick={() => onClickFunctions(order)}>
             ✅
           </XMarkContainer>
         </OrderNumberContainer>

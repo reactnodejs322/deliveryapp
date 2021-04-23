@@ -54,6 +54,7 @@ export const putOrderCurrentDragDrop = (currentdragdrop, orders) => {
 
 export const addDragDropToCollection = (
   dragdropcollection,
+  currentdragdrop,
   { orders: NewOrders, storename: NewStoreName }
 ) => {
   const existingDragDrop = dragdropcollection.find(
@@ -65,7 +66,23 @@ export const addDragDropToCollection = (
   }
 
   //if it doesn't exist then take the existing dragdropcollection and add a new dragdrop to it
-  return [...dragdropcollection, createNewDragDrop(NewOrders, NewStoreName)];
+  return [
+    ...dragdropcollection,
+    generateCurrentDragDrop(currentdragdrop, NewOrders, NewStoreName),
+  ];
+};
+export const generateCurrentDragDrop = (
+  currentdragdrop,
+  NewOrders,
+  NewStoreName
+) => {
+  const newDragdrop = cloneDeep(currentdragdrop);
+  NewOrders.forEach((order, i) => {
+    newDragdrop.orders[order._id] = order;
+    newDragdrop.columns["column-1"].orderIds.push(order._id);
+  });
+  newDragdrop.storename = NewStoreName;
+  return newDragdrop;
 };
 
 /* ACTION TYPE FOR "SETUP_CURRENT_DRAG_DROP"
@@ -84,14 +101,8 @@ export const getCurrentDragandDrop = (
   // if the drag and drop is in the collection?
   if (existingDragDrop) return existingDragDrop;
 
-  const newDragdrop = cloneDeep(currentdragdrop);
-  NewOrders.forEach((order, i) => {
-    newDragdrop.orders[order._id] = order;
-    newDragdrop.columns["column-1"].orderIds.push(order._id);
-  });
-  newDragdrop.storename = NewStoreName;
-
-  return newDragdrop;
+  //otherwise generate new currentdragdrop
+  return generateCurrentDragDrop(currentdragdrop, NewOrders, NewStoreName);
 };
 
 //ACTION TYPE FOR "PERSIST_ORDER_COLUMN"
@@ -285,32 +296,6 @@ export const removeDriverFromDragAndDrop = (
   return dragdrop;
 };
 
-//This Parses the data that we feed it and turns it into a draganddrop
-export const createNewDragDrop = (NewOrders, NewStoreName) => {
-  let newDragDropData = {
-    storename: NewStoreName,
-    orders: {},
-    columns: {
-      "column-1": {
-        id: "column-1",
-        title: "Orders",
-        orderIds: [],
-      },
-    },
-    columnOrder: ["column-1"],
-  };
-  NewOrders.forEach((order) => {
-    //create a newObject without the key ordernumber
-    let { orderNumber, ...WithoutorderNumber } = order;
-    // put orderNumber back in the object however rename it as
-    WithoutorderNumber["id"] = orderNumber.toString();
-
-    newDragDropData.orders[orderNumber] = WithoutorderNumber;
-    //push data into column 1 orderIds
-    newDragDropData.columns["column-1"].orderIds.push(orderNumber.toString());
-  });
-  return newDragDropData;
-};
 // ACTION TYPE FOR SAVE  When manager hits save button
 export const getDriverWithOrders = (drivers, orders) => {
   let drivers_with_orders = []; // list saved  multiple drivers

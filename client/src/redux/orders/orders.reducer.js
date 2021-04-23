@@ -214,6 +214,7 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
         apiorders: action.payload.orders,
         dragdropcollection: addDragDropToCollection(
           state.dragdropcollection,
+          state.currentdragdrop,
           action.payload
         ),
         currentdragdrop: getCurrentDragandDrop(

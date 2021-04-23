@@ -18,7 +18,10 @@ const AllApiOrders = ({ socketSendOrderUpdate }) => {
       api_orders.filter((order) => order !== chosen_completed_order)
     );
   };
-
+  const orderFromChild = (order_from_child) => {
+    changeAllApiOrderState(order_from_child);
+    socketSendOrderUpdate(order_from_child);
+  };
   return (
     <div className="all-api-orders-container">
       {api_orders.length
@@ -26,8 +29,7 @@ const AllApiOrders = ({ socketSendOrderUpdate }) => {
             <OrderCard
               key={index}
               order={order}
-              changeAllApiOrderState={changeAllApiOrderState}
-              socketSendOrderUpdate={socketSendOrderUpdate}
+              onClickFunctions={orderFromChild}
             />
           ))
         : null}

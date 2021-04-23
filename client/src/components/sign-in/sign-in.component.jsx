@@ -54,7 +54,13 @@ const SignIn = ({ emailSignInStart, googleSignInStart, setShowSignup }) => {
           required
         />
         <div className="buttons">
-          <CustomButton color={"red"} margin={"10px"}>
+          <CustomButton
+            color={"red"}
+            margin={"10px"}
+            onClickFunctionProp={() =>
+              emailSignInStart("test@test.com", "123456")
+            }
+          >
             Demo
           </CustomButton>
 
