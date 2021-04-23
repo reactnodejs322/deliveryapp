@@ -49,12 +49,12 @@ function* write(socket) {
       updateOrder: take("SOCKET_ORDER_SEND_UPDATE"),
       sendOrderBundle: take("SOCKET_ORDER_BUNDLES"),
     });
-    if (updateOrder) {
-      socket.emit("update-order", updateOrder.payload);
-    }
-    if (sendOrderBundle) {
-      socket.emit("order-bundles", driversWithOrdersOnly(sendOrderBundle));
-    }
+    // if (updateOrder) {
+    //   socket.emit("update-order", updateOrder.payload);
+    // }
+    // if (sendOrderBundle) {
+    //   socket.emit("order-bundles", driversWithOrdersOnly(sendOrderBundle));
+    // }
   }
 }
 
