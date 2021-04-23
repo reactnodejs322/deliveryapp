@@ -5,11 +5,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const CustomButtonStyles = makeStyles({
   root: {
-    color: (props) => (props.color ? props.color : "white"),
-    margin: (props) => (props.margin ? props.margin : ""),
+    color: ({ color }) => (color ? color : "white"),
+    margin: ({ margin }) => (margin ? margin : ""),
+    width: ({ width }) => (width ? width : ""),
+
+    height: ({ height }) => (height ? height : ""),
   },
   label: {
-    color: (props) => (props.color ? props.color : "white"),
+    color: ({ color }) => (color ? color : "white"),
   },
 });
 
@@ -17,6 +20,8 @@ export const CustomButton = ({
   children,
   color,
   margin,
+  width,
+  height,
   onClickFunctionProp = () => {
     // console.error(
     //   "You did not pass onClickFunctionProp to \n\n\tCustomButton Component"
@@ -25,9 +30,12 @@ export const CustomButton = ({
   ...props
 }) => {
   // console.log(onClickFunctionProp);
+  console.log(width);
   const classes = CustomButtonStyles({
     color: color,
     margin: margin,
+    width: width,
+    height: height,
   });
   return (
     <Button
