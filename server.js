@@ -6,7 +6,12 @@ const path = require("path");
 const server = require("http").createServer(app);
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const port = process.env.PORT || 3001;
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
 const mongoose = require("mongoose");
 //hello
 //stupid heroku https://stackoverflow.com/questions/26595874/i-want-make-push-and-get-error-src-refspec-master-does-not-match-any
