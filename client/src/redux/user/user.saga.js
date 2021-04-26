@@ -13,6 +13,7 @@ import {
   googleProvider,
   createUserProfileDocument,
   getCurrentUser,
+  firestore,
 } from "../util/firebase.utils";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
@@ -28,10 +29,28 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     yield put(signInFailure(error));
   }
 }
+export function* checkForEmailInDatabase(email) {
+  const collectionRef = yield firestore.collection("users");
+  const snapshot = yield collectionRef.where("email", "==", `${email}`).get();
+  const userProfile = snapshot.docs.map((doc) => doc.data());
+  return userProfile;
+}
+
+export const checkFor4DigitIdInObject = (user) => {
+  if ("id" in user) return true;
+  return createRandom4digitNumber();
+};
+
+export const createRandom4digitNumber = () => {
+  return Math.floor(Math.random() * (9999 - 1000) + 1000);
+};
 
 export function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleProvider);
+    // const user_profile = yield call(checkForEmailInDatabase, user.email);
+    // console.log(checkFor4DigitIdInObject(user));
+
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
     yield put(signInFailure(error));

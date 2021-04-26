@@ -1,6 +1,8 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/firebase-database";
+
 import { firekey } from "./Key";
 const config = firekey;
 
@@ -63,7 +65,6 @@ export const addCollectionAndDocuments = async (
   objectsToAdd
 ) => {
   const collectionRef = firestore.collection(collectionKey);
-  console.log(collectionRef);
 
   // we use batch because if we send something to firebase
   // and the internet stops
@@ -86,6 +87,7 @@ export const getCurrentUser = () => {
     }, reject);
   });
 };
+export const database = firebase.database();
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
