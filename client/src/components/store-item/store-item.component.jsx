@@ -6,13 +6,14 @@ import { connect } from "react-redux";
 import { setConnectedStore } from "../../redux/stores/stores.action";
 
 import { showDriverPanel } from "../../redux/drivers/drivers.action";
-export const StoreItem = ({
+const StoreItem = ({
   storeInfo,
   setConnectedStore,
   showDriverPanel,
+  setSnackbar,
 }) => {
   return (
-    <div className="storeitem">
+    <div className='storeitem'>
       {/* <div className="storeitem storeitem--text"></div> */}
       <Button
         onClick={() => {
@@ -20,8 +21,8 @@ export const StoreItem = ({
           setConnectedStore(storeInfo);
           showDriverPanel();
         }}
-        variant="outlined"
-        color="inherit"
+        variant='outlined'
+        color='inherit'
       >
         {storeInfo.name}
       </Button>

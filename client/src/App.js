@@ -9,6 +9,7 @@ import PrivateRoute from "./components/private-route/private-route.component";
 import "./App.styles.scss";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
+import SnakbarComponent from "./components/snackbar/snakbar.component";
 
 const Authentication = lazy(() =>
   import("./pages/Authentication/authentication.component")
@@ -25,23 +26,23 @@ const App = ({ checkUserSession, currentUser }) => {
     checkUserSession();
   }, [checkUserSession]);
   return (
-    <div className="App">
+    <div className='App'>
       {currentUser !== null ? <NavBar currentUser={currentUser} /> : null}
-
+      <SnakbarComponent />
       <Switch>
         {/*Note without caching user session with redux persesit  it will bug up
          and show Signup component for a split second
         */}
         <Suspense fallback={<Spinner />}>
-          <PrivateRoute path="/missioncontrol" component={MissionControl} />
-          <PrivateRoute path="/settings" component={UserSettings} />
+          <PrivateRoute path='/missioncontrol' component={MissionControl} />
+          <PrivateRoute path='/settings' component={UserSettings} />
 
           <Route
             exact
-            path="/"
+            path='/'
             render={() =>
               currentUser ? (
-                <Redirect to="/missioncontrol" />
+                <Redirect to='/missioncontrol' />
               ) : (
                 <Authentication />
               )

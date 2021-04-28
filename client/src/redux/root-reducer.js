@@ -10,6 +10,7 @@ import storesReducer from "./stores/stores.reducer";
 import socketReducer from "./socket/socket.reducer";
 import ordersReducer from "./orders/orders.reducer";
 import userReducer from "./user/user.reducer";
+import snackbarReducer from "./snackbar/snackbar.reducer";
 // READ ABOUT REDUX PERSIST HERE
 //Documentation- https://github.com/rt2zz/redux-persist#readme
 const cacheActiveMovingDriverONLY = createFilter("drivers", [
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   stores: storesReducer,
   orders: ordersReducer,
   user: userReducer,
+  snackbar: snackbarReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
