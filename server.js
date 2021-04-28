@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const port = process.env.PORT || 3001;
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:1000"],
     credentials: true,
   },
 });
