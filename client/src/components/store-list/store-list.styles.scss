@@ -3,10 +3,13 @@
   display: flex;
 
   justify-content: center;
-
+  align-items: center;
+  
   flex-direction: column;
   justify-content: space-evenly;
   border-radius: 10px;
+
+
   @media screen and (max-width: 670px) {
     margin-top: 10px;
     display: flex;
