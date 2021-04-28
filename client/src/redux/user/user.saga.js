@@ -15,8 +15,10 @@ import {
   getCurrentUser,
   firestore,
 } from "../util/firebase.utils";
+import { registerUserUidToMongo } from "./user.utlis";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
+  console.log(additionalData);
   try {
     const userRef = yield call(
       createUserProfileDocument,
@@ -36,25 +38,25 @@ export function* checkForEmailInDatabase(email) {
   return userProfile;
 }
 
-export const checkFor4DigitIdInObject = (user) => {
-  if ("id" in user) return true;
-  return createRandom4digitNumber();
-};
-
-export const createRandom4digitNumber = () => {
-  return Math.floor(Math.random() * (9999 - 1000) + 1000);
-};
-
 export function* signInWithGoogle() {
   try {
-    const { user } = yield auth.signInWithPopup(googleProvider);
-    // const user_profile = yield call(checkForEmailInDatabase, user.email);
-    // console.log(checkFor4DigitIdInObject(user));
+    // user will always return user data from google database cloud  the REAL GOOGLE
+    // not your database in firebase
 
+    const { user } = yield auth.signInWithPopup(googleProvider);
+    yield registerUserUidToMongo({
+      uid: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+    });
+    // When the user first registers with their google account
+    // socketid will be CREATED DURING FIRST REGISTRATION(First sign in with google)
+    // but it will NEVER OVERWRITE socketId if the user signs in again with google
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
     yield put(signInFailure(error));
   }
+
   //need the snapshot
 }
 export function* isUserAuthenticated() {

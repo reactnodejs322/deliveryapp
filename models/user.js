@@ -7,39 +7,45 @@ function validateUser(input) {
   const schema = joi.object({
     firstName: joi.string().min(3).max(50).required(),
     lastName: joi.string().min(3).max(50),
-    employeeId: joi.number().min(3).required(),
-    isAdmin: joi.boolean()
+    employeeId: joi.string().max(40).required(),
+    email: joi.string(),
+    isAdmin: joi.boolean(),
   });
   return schema.validate(input);
 }
 
 const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+  employeeId: {
+    type: String,
+    required: true,
+    maxlength: 40,
+  },
   firstName: {
     type: String,
     required: true,
     maxlength: 50,
     minlength: 3,
   },
+
   lastName: {
     type: String,
     required: false,
     maxlength: 50,
     minlength: 3,
   },
-  employeeId: {
-    type: Number,
-    required: true,
-    maxlength: 10,
-    minlength: 3,
-  },
+
   isAdmin: {
     type: Boolean,
     default: false,
   },
   isActive: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 // userSchema.methods.generateAuthToken = function () {
