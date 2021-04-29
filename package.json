@@ -12,7 +12,8 @@
   },
   "scripts": {
     "lint": "prettier --check ./client",
-    "format": "prettier --write ./client && echo \"\\x1b[104m\\x1b[97mFinished formating your files with prettier =)\\x1b[0m\"",
+    "message-color": "echo \"\\x1b[101m\\x1b[97mFinished formating your files with prettier =)\\x1b[0m\"",
+    "format": "prettier --write ./client &&  npm run message-color",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -t=5000",
