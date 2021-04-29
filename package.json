@@ -7,12 +7,12 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && git add -A . && echo \"\\x1b[104m\\x1b[97mFormating your files Before commit =)\\x1b[0m\""
+      "pre-commit": "npm run format && git add -A ."
     }
   },
   "scripts": {
     "lint": "prettier --check ./client",
-    "format": "prettier --write ./client",
+    "format": "echo \"\\x1b[104m\\x1b[97mFormating your files Before commit =)\\x1b[0m\" && prettier --write ./client",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -t=5000",
