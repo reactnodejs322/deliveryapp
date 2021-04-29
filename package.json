@@ -7,7 +7,7 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "cd client && npm run format"
+      "pre-commit": "npm run format"
     }
   },
   "scripts": {
