@@ -7,7 +7,7 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run format"
     }
   },
   "scripts": {
@@ -53,7 +53,7 @@
     "chai": "^4.3.0",
     "chai-http": "^4.3.0",
     "cross-env": "^7.0.3",
-    "husky": "^6.0.0",
+    "husky": "^4.3.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0"
   },
