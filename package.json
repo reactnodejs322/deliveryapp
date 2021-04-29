@@ -7,12 +7,13 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && git add -A ."
+      "pre-commit": "pretty-quick --staged"
     }
   },
   "scripts": {
     "lint": "prettier --check ./client",
-    "format": "prettier --write ./client && echo \"\\x1b[104m\\x1b[97mFinished formating your files with prettier =)\\x1b[0m\"",
+    "message-color": "echo \"\\x1b[101m\\x1b[97mFinished formating your files with prettier =)\\x1b[0m\"",
+    "format": "prettier --write ./client &&  npm run message-color",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -t=5000",
@@ -55,7 +56,9 @@
     "cross-env": "^7.0.3",
     "husky": "^4.3.0",
     "mocha": "^8.2.1",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
