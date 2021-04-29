@@ -7,7 +7,7 @@
   "license": "ISC",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && git add -A ."
+      "pre-commit": "npm run format && git add -A . && echo \"\\x1b[104m\\x1b[97mFormating your files Before commit =)\\x1b[0m\""
     }
   },
   "scripts": {
