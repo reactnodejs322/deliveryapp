@@ -3,7 +3,11 @@ import StoreItem from "../store-item/store-item.component";
 import { connect } from "react-redux";
 import { fetchApiStoreListUseEffect } from "../../redux/stores/stores.action";
 import "./store-list.styles.scss";
-export const StoreList = ({ stores, displayName, fetchApiStoreListUseEffect }) => {
+export const StoreList = ({
+  stores,
+  displayName,
+  fetchApiStoreListUseEffect,
+}) => {
   useEffect(() => {
     fetchApiStoreListUseEffect();
   }, [fetchApiStoreListUseEffect]);
