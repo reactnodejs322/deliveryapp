@@ -86,7 +86,6 @@ Our shop platform is an open-source project, and we are always looking for more 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
   <br />
   <p>I am Bryan Aviles creating amazing software </p>
-  <br />
 
 #### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
 
