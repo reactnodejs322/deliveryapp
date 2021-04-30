@@ -91,11 +91,29 @@ Our shop platform is an open-source project, and we are always looking for more 
 
 #### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
 
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
   <br />
   <p>I am Bryan Aviles creating amazing software </p>
   <br />
+<br/>
 
+#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
+
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
+  <br />
+  <p>I am Bryan Aviles creating amazing software </p>
+  <br />
+<br/>
+
+#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
+
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
+  <br />
+  <p>I am Bryan Aviles creating amazing software </p>
+  <br />
+<br/>
+
+<br/>
 ## Join our open-source project! 💪
 
 ### Motivation for open-source
