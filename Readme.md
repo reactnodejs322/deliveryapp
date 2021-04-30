@@ -12,19 +12,19 @@
 
 <!-- short description -->
 <p align="center">
-  Delivery App to help delivery your food on time ♥️</a>
+  Delivery App to help delivery your food on time hot and fresh!  ♥️</a>
 </p>
 
 <p align="center">
   <strong>
-    <br />[It's finally live! ☺️](https://deliverytracker.herokuapp.com/)
+    <br />[Live at!☺️](https://deliverytracker.herokuapp.com/)
   </strong>
 </p>
 
 ## Table of contents 📚
 
 - [Table of contents 📚](#table-of-contents-)
-- [About Our Online Shop 🚚](#about-our-online-shop-)
+- [About Our Delivery App 🚚](#about-our-online-shop-)
 - [Features](#features)
 - [Tech-stack](#tech-stack)
 - [Open-source Team](#open-source-team)
@@ -45,8 +45,6 @@
   - [configuring frontend](#configuring-frontend)
 - [Understanding User Authorization ✔️](#understanding-user-authorization-️)
 - [User Authorization in Code](#user-authorization-in-code)
-- [Adding products](#adding-products)
-- [Stripe checkout](#stripe-checkout)
 - [Contributing 💦](#contributing-)
 - [Special Thanks ❤️](#special-thanks-️)
 - [License 📝](#license-)
