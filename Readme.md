@@ -17,7 +17,6 @@
 
 <p align="center">
   <strong>
-    Short demo <a href="https://streamable.com/8ww17h"> here</a>
     <br />[It's finally live! ☺️](https://deliverytracker.herokuapp.com/)
   </strong>
 </p>
