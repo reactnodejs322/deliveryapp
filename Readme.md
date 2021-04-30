@@ -95,8 +95,6 @@ Our shop platform is an open-source project, and we are always looking for more 
   <p>I am Bryan Aviles creating amazing software </p>
   <br />
 
-<br />
-
 ## Join our open-source project! 💪
 
 ### Motivation for open-source
