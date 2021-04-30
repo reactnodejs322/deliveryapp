@@ -88,14 +88,7 @@ Our shop platform is an open-source project, and we are always looking for more 
   <p>I am Bryan Aviles creating amazing software </p>
   <br />
 
-#### [Wiktoria ](https://github.com/reactnodejs32) - Organizer/Developer
-
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
-  <br />
-  <p>I am Bryan Aviles creating amazing software </p>
-  <br />
-
-#### [Wiktoria ](https://github.com/reactnodejs32) - Organizer/Developer
+#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
   <br />
