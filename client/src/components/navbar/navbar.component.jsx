@@ -56,18 +56,6 @@ export const NavBar = ({ history, currentUser }) => {
             onClick={() => history.push("/settings")}
             label="SETTINGS"
           />
-          {/* <Tab
-            data-test="dateTab3"
-            style={{ width: "20vh" }}
-            onClick={() => history.push("/signin")}
-            label="signin"
-          />
-          <Tab
-            data-test="dateTab4"
-            style={{ width: "20vh" }}
-            onClick={() => history.push("/signup")}
-            label="signup"
-          /> */}
         </Tabs>
       </Paper>
     </div>
