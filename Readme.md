@@ -167,12 +167,12 @@ Now that you've made your decision to make your first contribution. Here's how t
 ├── client                      # handles all of the frontend logics
   ├── assets                    # storing svg files
   └── components                # where React components live
-  └── pages                     # where main shop pages lives
+  └── pages                     # where different route pages lives
   └── firebase                  # handles firebase connections and logic
   └── redux                     # handles all redux logic, sets up redux store
   └── app.js                      # main entry point of the front end app
 ├── server                      # (root) directory handles all of the backend logics
-  └── models                    # product and checkout item model for database
+  └── models                    # Manager and driver item model for database
   └── routes                    # route handler for API endpoints
   └── server.js                    # main entry point for all requests
 ├── LICENSE                     # MIT license
