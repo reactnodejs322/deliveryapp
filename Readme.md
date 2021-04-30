@@ -78,7 +78,7 @@ and drag orders to drivers on the go
 
 ## Open-source Team
 
-Our shop platform is an open-source project, and we are always looking for more like-minded developers who would like to contribute! These are our current [**contributors**](https://github.com/reactnodejs32/deliveryapp/graphs/contributors) helping push the project forward each day.
+Our delivery driver platform is an open-source project, and we are always looking for more like-minded developers who would like to contribute! These are our current [**contributors**](https://github.com/reactnodejs32/deliveryapp/graphs/contributors) helping push the project forward each day.
 
 #### [Bryan Aviles](https://github.com/reactnodej32) - Organizer/Developer
 
