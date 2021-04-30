@@ -7,7 +7,5 @@ checkout the demo at
 https://deliverytracker.herokuapp.com/
 
 
-TESTING
-
 
 
