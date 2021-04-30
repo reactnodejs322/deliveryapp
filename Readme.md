@@ -52,7 +52,7 @@
 - [Special Thanks ❤️](#special-thanks-️)
 - [License 📝](#license-)
 
-## About Our Online Shop 🚚
+## About Our Delivery Driver app 🚚
 
 Welcome to our Delivery driver app
 
@@ -98,6 +98,7 @@ Our shop platform is an open-source project, and we are always looking for more 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/ano.jpg">
 <br />
   <p>Completely in love with reading, studying, computing, programming, coffee and languages - German, English and Urdu <3.</p>
+<br/>
 
 #### [Alex](https://github.com/AppleJaxxZ) - Developer
 
