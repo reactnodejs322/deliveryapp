@@ -110,6 +110,15 @@ Our delivery driver platform is an open-source project, and we are always lookin
   <br />
 <br/>
 
+#### [Haley](https://github.com/hailstormCodes) - developer
+
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/h.jpg">
+  <br />
+  <p>👀 I’m interested in finding where I fit in in the world. 
+  🌱 I’m currently learning React Native with Zero to Mastery on Udemy. It's incredible and I highly recommend it! </p>
+  <br />
+<br/>
+
 #### [Alfred](https://github.com/learnwithalfred) - developer
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alred.jpg">
