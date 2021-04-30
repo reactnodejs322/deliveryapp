@@ -92,6 +92,7 @@ Our shop platform is an open-source project, and we are always looking for more 
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
   <p>Hello I am wiktoria getting started with contributing to opensource and spreading love </p>
+<br/>
 
 #### [Sameer katija](https://github.com/sameerkatija) - Developer
 
