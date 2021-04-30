@@ -89,27 +89,27 @@ Our shop platform is an open-source project, and we are always looking for more 
   <br />
 <br/>
 
-#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
+#### [Wiktoria](https://github.com/WiktoriaAgarkowa) - Frontend Developer
 
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
   <br />
-  <p>I am Bryan Aviles creating amazing software </p>
-  <br />
-<br/>
-
-#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
-
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
-  <br />
-  <p>I am Bryan Aviles creating amazing software </p>
+  <p>I am Wiktoria contributing to open source and spreading love</p>
   <br />
 <br/>
 
-#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
+#### [Sameer katija](https://github.com/sameerkatija) -| Full-Stack Developer 💻 | AI enthusiast | Love ❤️ to code </> | Writer✒|
 
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/anon.jpg">
   <br />
-  <p>I am Bryan Aviles creating amazing software </p>
+  <p>Completely in love with reading, studying, computing, programming, coffee and languages - German, English and Urdu <3.</p>
+  <br />
+<br/>
+
+#### [Alex Z](https://github.com/AppleJaxxZ) - Developer
+
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alex.jpg">
+  <br />
+  <p>My souls truest passions are helping others and coding, with both of these passions I hope to make the world a little better all the time. </p>
   <br />
 <br/>
 
