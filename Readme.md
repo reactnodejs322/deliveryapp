@@ -88,25 +88,12 @@ Our shop platform is an open-source project, and we are always looking for more 
   <p>I am Bryan Aviles creating amazing software </p>
   <br />
 
-#### [Wiktoria](https://github.com/WiktoriaAgarkowa) - Developer
+#### [Bryan Aviles](https://github.com/reactnodejs32) - Organizer/Developer
 
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
-  <p>Hello I am wiktoria getting started with contributing to opensource and spreading love </p>
-<br/>
-
-#### [Sameer katija](https://github.com/sameerkatija) - Developer
-
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/ano.jpg">
-<br />
-  <p>Completely in love with reading, studying, computing, programming, coffee and languages - German, English and Urdu <3.</p>
-<br/>
-
-#### [Alex](https://github.com/AppleJaxxZ) - Developer
-
-  <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alex.jpg">
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
   <br />
-  <p>
-  My souls truest passions are helping others and coding, with both of these passions I hope to make the world a little better all the time.</p>
+  <p>I am Bryan Aviles creating amazing software </p>
+  <br />
 
 <br />
 
