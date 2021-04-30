@@ -85,7 +85,7 @@ Our shop platform is an open-source project, and we are always looking for more 
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/bryan.jpg">
   <br />
-  <p>I am Bryan Aviles creating amazing software </p>
+  <p>I am Bryan Aviles  a person who loves creating amazing software  😊 </p>
   <br />
 <br/>
 
@@ -93,7 +93,7 @@ Our shop platform is an open-source project, and we are always looking for more 
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/wik.jpg">
   <br />
-  <p>I am Wiktoria contributing to open source and spreading love</p>
+  <p>I am Wiktoria contributing to open source and spreading love ❤️</p>
   <br />
 <br/>
 
@@ -181,7 +181,7 @@ Now that you've made your decision to make your first contribution. Here's how t
 
 ### General Setup
 
-### Please ask reactnodejs32 to give you credentials to the project
+### Please email easyrun32@gmail.com to give you credentials to the project
 
 ## Understanding User Authorization ✔️
 
