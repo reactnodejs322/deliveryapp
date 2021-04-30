@@ -105,7 +105,7 @@ Our shop platform is an open-source project, and we are always looking for more 
   <br />
 <br/>
 
-#### [Alex Z](https://github.com/AppleJaxxZ) - Developer
+#### [Alex Z](https://github.com/AppleJaxxZ) - Developer 🔥
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alex.jpg">
   <br />
@@ -114,6 +114,7 @@ Our shop platform is an open-source project, and we are always looking for more 
 <br/>
 
 <br/>
+
 ## Join our open-source project! 💪
 
 ### Motivation for open-source
