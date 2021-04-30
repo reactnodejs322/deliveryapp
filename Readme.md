@@ -114,7 +114,7 @@ Our delivery driver platform is an open-source project, and we are always lookin
 
 #### [Alfred](https://github.com/learnwithalfred) - developer
 
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alfred.jpg">
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alred.jpg">
   <br />
   <p> Hello i am alfred contributing to the project! </p>
   <br />
