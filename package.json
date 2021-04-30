@@ -14,14 +14,14 @@
     "lint": "prettier --check ./client",
     "message-color": "echo \"\\x1b[101m\\x1b[97mFinished formating your files with prettier =)\\x1b[0m\"",
     "format": "prettier --write ./client &&  npm run message-color",
-    "start": "node server.js",
+    "start": "node ./server/server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -t=5000",
-    "test_w": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/**' -w",
-    "unit_test": "cross-env NODE_ENV=test_local nyc -r=html -r=text mocha './test/unit/**' --exit",
-    "int_test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './test/integration/**' --exit -t=5000",
-    "unit_test_w": "cross-env NODE_ENV=test_local nyc -r=text mocha './test/unit/**' -w",
-    "int_test_w": "cross-env NODE_ENV=test nyc -r=text mocha './test/integration/**' -w"
+    "test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './server/test/**' -t=5000",
+    "test_w": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './server/test/**' -w",
+    "unit_test": "cross-env NODE_ENV=test_local nyc -r=html -r=text mocha './server/test/unit/**' --exit",
+    "int_test": "cross-env NODE_ENV=test nyc -r=html -r=text mocha './server/test/integration/**' --exit -t=5000",
+    "unit_test_w": "cross-env NODE_ENV=test_local nyc -r=text mocha './server/test/unit/**' -w",
+    "int_test_w": "cross-env NODE_ENV=test nyc -r=text mocha './server/test/integration/**' -w"
   },
   "engines": {
     "node": "12.18.2"
