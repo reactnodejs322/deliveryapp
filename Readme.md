@@ -99,7 +99,7 @@ Our shop platform is an open-source project, and we are always looking for more 
 
 #### [Sameer katija](https://github.com/sameerkatija) -| Full-Stack Developer 💻 | AI enthusiast | Love ❤️ to code </> | Writer✒|
 
-<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/anon.jpg">
+<img align="left" width="120" height="120" style="border-radius:50%" src="contributors/ano.jpg">
   <br />
   <p>Completely in love with reading, studying, computing, programming, coffee and languages - German, English and Urdu <3.</p>
   <br />
