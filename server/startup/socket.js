@@ -102,7 +102,7 @@ module.exports = async function (io) {
       }
     });
 
-    socket.on("message", (msg) => message(socket, msg, users));
+    // socket.on("message", (msg) => message(socket, msg, users));
 
     socket.on("order-bundles", (data) => orders(socket, data));
 
