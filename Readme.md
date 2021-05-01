@@ -102,7 +102,7 @@ Our delivery driver platform is an open-source project, and we are always lookin
   <br />
 <br/>
 
-#### [Alex Z](https://github.com/AppleJaxxZ) - Developer 🔥
+#### [Alex Z](https://github.com/AppleJaxxZ) - 🔥 Developer 🔥
 
 <img align="left" width="120" height="120" style="border-radius:50%" src="contributors/alex.jpg">
   <br />
