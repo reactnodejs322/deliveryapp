@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOutStart } from "../../redux/user/user.actions";
-import { CustomButton } from "../custom-button/custom-button.component";
+import { CustomButton } from "../../components/custom-button/custom-button.component";
 import "./user-settings.styles.scss";
 const UserSettings = ({ signOutStart }) => {
   return (
