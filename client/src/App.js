@@ -17,7 +17,7 @@ const MissionControl = lazy(() =>
   import("./pages/missioncontrol/mission-control.component")
 );
 const UserSettings = lazy(() =>
-  import("./components/user-settings/user-settings.component")
+  import("./pages/user-settings/user-settings.component")
 );
 
 const App = ({ checkUserSession, currentUser }) => {
