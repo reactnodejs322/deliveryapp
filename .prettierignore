@@ -8,6 +8,7 @@ server/.env
 
 # testing
 server/coverage
+server/coverage/*
 
 
 # misc
