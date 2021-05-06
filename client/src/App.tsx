@@ -1,29 +1,29 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { Dispatch } from "redux";
 import Spinner from "./components/spinner/spinner.component";
-// import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import NavBar from "./components/navbar/navbar.component";
-// import PrivateRoute from "./components/private-route/private-route.component";
+import PrivateRoute from "./components/private-route/private-route.component";
 import "./App.styles.scss";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
 
-// const Authentication = lazy(
-//   () => import("./pages/Authentication/authentication.component")
-// );
-// const MissionControl = lazy(
-//   () => import("./pages/missioncontrol/mission-control.component")
-// );
-// const UserSettings = lazy(
-//   () => import("./pages/user-settings/user-settings.component")
-// );
+const Authentication = lazy(
+  () => import("./pages/Authentication/authentication.component")
+);
+const MissionControl = lazy(
+  () => import("./pages/missioncontrol/mission-control.component")
+);
+const UserSettings = lazy(
+  () => import("./pages/user-settings/user-settings.component")
+);
 
 interface Props {
   checkUserSession: () => void;
-  currentUser?: any;
+  currentUser?: unknown;
 }
 const App = ({ checkUserSession, currentUser }: Props) => {
   useEffect(() => {
@@ -34,11 +34,10 @@ const App = ({ checkUserSession, currentUser }: Props) => {
     <div className="App">
       {currentUser !== null ? <NavBar currentUser={currentUser} /> : null}
 
-      {/* <Switch>
-       
+      <Switch>
         <Suspense fallback={<Spinner />}>
-          <PrivateRoute path="/missioncontrol" component={MissionControl} />
-          <PrivateRoute path="/settings" component={UserSettings} />
+          {/* <PrivateRoute path="/missioncontrol" component={MissionControl} />
+          <PrivateRoute path="/settings" component={UserSettings} /> */}
 
           <Route
             exact
@@ -51,8 +50,8 @@ const App = ({ checkUserSession, currentUser }: Props) => {
               )
             }
           />
-        </Suspense> 
-      </Switch> */}
+        </Suspense>
+      </Switch>
     </div>
   );
 };
