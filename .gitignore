@@ -2,5 +2,10 @@
 node_modules
 .DS_Store
 server/coverage
+<<<<<<< HEAD
 server/.nyc_output
 server/config/*
+=======
+server/config
+server/.nyc_output
+>>>>>>> master
