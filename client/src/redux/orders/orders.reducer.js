@@ -181,23 +181,6 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
         ...new Set(OrderNewCurrentDragdrop.columns["column-1"].orderIds),
       ];
 
-      /*
-      To Avoid duplicates
-      In a scenerio where Socket Order new gives  the same order twice
-      
-      var setObj = new Set(); // create key value pair from array of array
-
-      var result = arrOfObj.reduce((acc,item)=>{
-      if(!setObj.has(item.id)){
-      setObj.add(item.id,item)
-      acc.push(item)
-      }
-      return acc;
-      },[]);//converting back to array from mapobject
-
-      console.log(result); //[{"id":1,"name":"abc","age":27},{"id":2,"name":"pqr","age":27}]
-      */
-
       return {
         ...state,
         apiorders: [...state.apiorders, action.payload],
@@ -270,6 +253,7 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
       );
 
       if (FoundDragDropInCollections === undefined) return { ...state };
+
       const NewCurrentDragDrop = deltaDriverDragDrop(
         FoundDragDropInCollections,
         action.payload.driver
@@ -284,6 +268,8 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
       };
     //when a driver disconnects
     case OrdersActionTypes.REMOVE_DRIVER_FROM_DRAG_AND_DROP:
+      console.log(state.currentdragdrop);
+      console.log(action.payload);
       const NewDriver = removeDriverFromDragAndDrop(
         state.currentdragdrop,
         action.payload
@@ -305,6 +291,11 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
       };
     // when you press the save button :)
     case OrdersActionTypes.SAVE_ORDER:
+      console.log(
+        state.currentdragdrop.columns,
+        " ",
+        state.currentdragdrop.orders
+      );
       return {
         ...state,
         drivers_with_orders: getDriverWithOrders(
