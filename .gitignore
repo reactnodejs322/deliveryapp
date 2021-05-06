@@ -1,4 +1,6 @@
 .env
 node_modules
 .DS_Store
-coverage
+server/coverage
+server/config
+server/.nyc_output
