@@ -13,8 +13,7 @@ const io = require("socket.io")(server, {
   },
 });
 const mongoose = require("mongoose");
-//hello
-//stupid heroku https://stackoverflow.com/questions/26595874/i-want-make-push-and-get-error-src-refspec-master-does-not-match-any
+
 app.use(compression());
 app.use(cors());
 mongoose
