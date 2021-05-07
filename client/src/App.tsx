@@ -21,11 +21,11 @@ const UserSettings = lazy(
   () => import("./pages/user-settings/user-settings.component")
 );
 
-interface Props {
+interface AppProps {
   checkUserSession: () => void;
   currentUser?: unknown;
 }
-const App = ({ checkUserSession, currentUser }: Props) => {
+const App = ({ checkUserSession, currentUser }: AppProps) => {
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
