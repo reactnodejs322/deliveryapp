@@ -1,6 +1,6 @@
-import React from "react";
-import "./googlebutton.styles.scss";
 import googleimg from "./google.png";
+import "./googlebutton.styles.scss";
+
 export const GoogleButton = ({ ...props }) => {
   return (
     <div className="googlebutton" {...props}>

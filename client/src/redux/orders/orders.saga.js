@@ -5,16 +5,20 @@ import {
   all,
   call,
   select,
-  fork,
-  take,
-  cancel,
+  // fork,
+  // take,
+  // cancel,
   // race,
 } from "redux-saga/effects";
 //Listener
 import SocketActionTypes from "../socket/socket.types";
 import DriversActionTypes from "../drivers/drivers.types";
 //Functions
-import { socketOrderOn, disconnect, fetchOrders } from "./orders.utils";
+import {
+  // socketOrderOn,
+  // disconnect,
+  fetchOrders,
+} from "./orders.utils";
 //Actions
 import {
   setupCurrentDragDrop,
@@ -22,18 +26,18 @@ import {
   removeDriverDragDrop,
 } from "./orders.action";
 
-export function* read_Emit_Or_Write_Emit(socket) {
-  yield fork(read, socket);
-  // yield fork(write, socket);
-}
+// export function* read_Emit_Or_Write_Emit(socket) {
+//   yield fork(read, socket);
+//   // yield fork(write, socket);
+// }
 
-export function* read(socket) {
-  const channel = yield call(socketOrderOn, socket);
-  while (true) {
-    let action = yield take(channel);
-    yield put(action);
-  }
-}
+// export function* read(socket) {
+//   const channel = yield call(socketOrderOn, socket);
+//   while (true) {
+//     let action = yield take(channel);
+//     yield put(action);
+//   }
+// }
 
 // const driversWithOrdersOnly = ({ payload }) => {
 //   return payload.filter((driver) => driver.orders.length > 0);
@@ -59,28 +63,28 @@ export function* read(socket) {
 // }
 
 /*First We need to retrieve data from the socket reducer*/
-export const getSocket = (state) => state.socket.socket; //socket is an Object
+// export const getSocket = (state) => state.socket.socket; //socket is an Object
 
-export function* orderSocketFlow() {
-  const socket = yield select(getSocket);
-  /* Yield represents that we are waiting for an action to be called so
-  this does not produce a infinite loop!*/
-  while (true) {
-    /* We start the flow of socket.on  or socket.emit  using  
-    read_Emit_Or_Write_Emit function which requires the socket Object*/
-    const emitAction = yield fork(read_Emit_Or_Write_Emit, socket);
+// export function* orderSocketFlow() {
+//   const socket = yield select(getSocket);
+//   /* Yield represents that we are waiting for an action to be called so
+//   this does not produce a infinite loop!*/
+//   while (true) {
+//     /* We start the flow of socket.on  or socket.emit  using
+//     read_Emit_Or_Write_Emit function which requires the socket Object*/
+//     const emitAction = yield fork(read_Emit_Or_Write_Emit, socket);
 
-    /* The loop stops here when we listen to when the manager
-    is pressing the disconnect button aka listening to socket disconnect action*/
-    yield take(SocketActionTypes.SOCKET_OFF);
+//     /* The loop stops here when we listen to when the manager
+//     is pressing the disconnect button aka listening to socket disconnect action*/
+//     yield take(SocketActionTypes.SOCKET_OFF);
 
-    /*afterwards we prepare to shutdown the socket gracefully*/
-    yield call(disconnect, socket);
+//     /*afterwards we prepare to shutdown the socket gracefully*/
+//     yield call(disconnect, socket);
 
-    // canceling the emitAction from the socket.on and pulling away from the while loop
-    yield cancel(emitAction);
-  }
-}
+//     // canceling the emitAction from the socket.on and pulling away from the while loop
+//     yield cancel(emitAction);
+//   }
+// }
 
 //get storename
 const getStoreNameFromReducer = (state) => state.stores.connectedStore.name; //socket is an Object
@@ -97,7 +101,7 @@ export function* setupOrderDragDrop() {
       storename: storename,
     })
   );
-  yield call(orderSocketFlow);
+  // yield call(orderSocketFlow);
 }
 
 // When a new Driver is added then we want to initalize the driver
