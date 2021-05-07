@@ -23,13 +23,10 @@ const directory: { [key: string]: number } = {
   "/settings": 1,
   "/": 1,
 };
-interface ChildComponentProps extends RouteComponentProps<any> {
+interface NavbarProps extends RouteComponentProps<any> {
   currentUser?: unknown;
 }
-export const NavBar: React.FC<ChildComponentProps> = ({
-  history,
-  currentUser,
-}) => {
+export const NavBar: React.FC<NavbarProps> = ({ history, currentUser }) => {
   const classes = useStyles();
   const location = useLocation();
   const [value, setValue] = React.useState(directory[`${location.pathname}`]);
