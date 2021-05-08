@@ -12,7 +12,7 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
 
 const Authentication = lazy(
-  () => import("./pages/Authentication/authentication.component")
+  () => import("./pages/authentication/authentication.component")
 );
 const MissionControl = lazy(
   () => import("./pages/missioncontrol/mission-control.component")

@@ -4,7 +4,7 @@ import Signup from "../../components/sign-up/sign-up.component";
 import "./authentication.styles.scss";
 
 const Authentication = () => {
-  const [show_signup, setShowSignup] = useState<boolean>(true);
+  const [show_signup, setShowSignup] = useState<boolean>(false);
 
   return (
     <div className="authentication">
