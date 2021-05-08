@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { useLocation } from "react-router-dom";
-import { withRouter } from "react-router";
+import { withRouter, RouteComponentProps } from "react-router";
 import "./navbar.styles.scss";
 import globalcss from "../../global-css/styled-component-variable";
 const useStyles = makeStyles({
@@ -17,23 +17,28 @@ const useStyles = makeStyles({
     color: "white",
   },
 });
-let directory = {
+
+const directory: { [key: string]: number } = {
   "/missioncontrol": 0,
   "/settings": 1,
   "/": 1,
 };
-export const NavBar = ({ history, currentUser }) => {
+interface NavbarProps extends RouteComponentProps<any> {
+  currentUser?: unknown;
+}
+export const NavBar: React.FC<NavbarProps> = ({ history, currentUser }) => {
   const classes = useStyles();
   const location = useLocation();
   const [value, setValue] = React.useState(directory[`${location.pathname}`]);
   useEffect(() => {
     setValue(directory[`${location.pathname}`]);
   }, [location.pathname]);
-  const handleChange = (event, newValue) => {
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     if (!currentUser) return;
+
     setValue(newValue);
   };
-
   return (
     <div className="navbar">
       <Paper square className={classes.root}>

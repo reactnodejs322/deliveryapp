@@ -3,35 +3,54 @@ import { connect } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-
+import { Dispatch } from "redux";
 import { signUpStart } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
-const SignUp = ({ signUpStart, setShowSignup }) => {
-  const [userCredentials, setUserCredentials] = useState({
+
+interface SignUpProps {
+  signUpStart: (value: {
+    displayName: string;
+    email: string;
+    password: string;
+  }) => void;
+  /*
+   setShowSignup needs a value internally this is how it works setState
+   type Dispatch<A> = (value: A) => void;
+   You're missing the value argument from your type.
+   This should be correct (also note that it needs to be a colon not an equal sign):
+  */
+  setShowSignup: (active: boolean) => void;
+}
+
+interface UserCredentialsState {
+  displayName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+const SignUp: React.FC<SignUpProps> = ({ signUpStart, setShowSignup }) => {
+  const [userCredentials, setUserCredentials] = useState<UserCredentialsState>({
     displayName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
   const { displayName, email, password, confirmPassword } = userCredentials;
-  const handleSubmit = async (event) => {
-    event.preventDefault();
 
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+
+    setUserCredentials({ ...userCredentials, [name]: value });
+  };
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     if (password !== confirmPassword) {
       alert("passwords don't match");
       return;
     }
-    // console.log(displayName, email, password);
     signUpStart({ displayName, email, password });
   };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setUserCredentials({ ...userCredentials, [name]: value });
-  };
-
   return (
     <div className="signupcontainer">
       <h2>I do not have a account</h2>
@@ -84,8 +103,12 @@ const SignUp = ({ signUpStart, setShowSignup }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  signUpStart: (userCredentials) => dispatch(signUpStart(userCredentials)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  signUpStart: (value: {
+    displayName: string;
+    email: string;
+    password: string;
+  }) => dispatch(signUpStart(value)),
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);

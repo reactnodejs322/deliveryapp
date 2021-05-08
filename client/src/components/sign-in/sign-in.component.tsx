@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import FormInput from "../form-input/form-input.component";
-
+import { Dispatch } from "redux";
 import "./sign-in.styles.scss";
 import GoogleButton from "../googlebutton/googlebutton.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -11,22 +11,30 @@ import {
   emailSignInStart,
 } from "../../redux/user/user.actions";
 
-// import "./sign-in.styles.scss";
+interface SignInProps {
+  googleSignInStart: () => void;
+  setShowSignup: (active: boolean) => void;
+  emailSignInStart: (email: string, password: string) => void;
+}
 
-const SignIn = ({ emailSignInStart, googleSignInStart, setShowSignup }) => {
+const SignIn: React.FC<SignInProps> = ({
+  emailSignInStart,
+  googleSignInStart,
+  setShowSignup,
+}) => {
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
   });
   const { email, password } = userCredentials;
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     emailSignInStart(email, password);
   };
 
-  const handleChange = (event) => {
-    const { value, name } = event.target;
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { value, name } = event.currentTarget;
 
     setCredentials({ ...userCredentials, [name]: value });
   };
@@ -38,10 +46,10 @@ const SignIn = ({ emailSignInStart, googleSignInStart, setShowSignup }) => {
 
       <form onSubmit={handleSubmit}>
         <FormInput
-          name="email"
           type="email"
-          handleChange={handleChange}
+          name="email"
           value={email}
+          onChange={handleChange}
           label="email"
           required
         />
@@ -49,7 +57,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart, setShowSignup }) => {
           name="password"
           type="password"
           value={password}
-          handleChange={handleChange}
+          onChange={handleChange}
           label="password"
           required
         />
@@ -82,9 +90,9 @@ const SignIn = ({ emailSignInStart, googleSignInStart, setShowSignup }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   googleSignInStart: () => dispatch(googleSignInStart()),
-  emailSignInStart: (email, password) =>
+  emailSignInStart: (email: string, password: string) =>
     dispatch(emailSignInStart({ email, password })),
 });
 export default connect(null, mapDispatchToProps)(SignIn);
