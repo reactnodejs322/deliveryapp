@@ -36,8 +36,8 @@ const App = ({ checkUserSession, currentUser }: AppProps) => {
 
       <Switch>
         <Suspense fallback={<Spinner />}>
-          {/* <PrivateRoute path="/missioncontrol" component={MissionControl} />
-          <PrivateRoute path="/settings" component={UserSettings} /> */}
+          <PrivateRoute path="/missioncontrol" component={MissionControl} />
+          <PrivateRoute path="/settings" component={UserSettings} />
 
           <Route
             exact

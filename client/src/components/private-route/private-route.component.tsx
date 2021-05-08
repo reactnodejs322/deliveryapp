@@ -1,11 +1,20 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-//High Order component meaning a component is passed down as a prop
-const PrivateRoute = ({ component: Component, currentUser, ...rest }) => (
+import { Route, Redirect, RouteProps } from "react-router-dom";
+
+export type PrivateRouteProps = {
+  component: React.ElementType;
+  currentUser?: any;
+} & RouteProps;
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component: Component,
+  currentUser,
+  ...rest
+}) => (
   <Route
     {...rest}
     render={(props) =>
