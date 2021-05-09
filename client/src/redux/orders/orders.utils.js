@@ -1,44 +1,44 @@
 import axios from "axios";
 import { differenceBy } from "lodash";
-import { eventChannel } from "redux-saga";
+// import { eventChannel } from "redux-saga";
 import { cloneDeep } from "lodash";
-import {
-  socketOrderNew,
-  socketOrderUpdate,
-  socketOrderDelete,
-} from "./orders.action";
+// import {
+//   socketOrderNew,
+//   socketOrderUpdate,
+//   socketOrderDelete,
+// } from "./orders.action";
 /*ACTION TYPE FOR "SETUP_CURRENT_DRAG_DROP"
 If a store exist within a draganddropcollection then we leave it as is
 otherwise if the manager clicks on a new store then 
 we generate a newDragAndDrop and add it to draganddrop collectio*/
 
-export function disconnect(socket) {
-  socket.disconnect();
-}
-export function socketOrderOn(socket) {
-  return eventChannel((emit) => {
-    socket.on("orders-new", (New_Order) => {
-      console.log('socket.on("orders-new")', New_Order);
-      emit(socketOrderNew(New_Order));
-    });
-    socket.on("order-updates", (Order_With_Updated_Status) => {
-      console.log('socket.on("order-updates")', Order_With_Updated_Status);
-      emit(socketOrderUpdate(Order_With_Updated_Status));
-    });
+// export function disconnect(socket) {
+//   socket.disconnect();
+// }
+// export function socketOrderOn(socket) {
+//   return eventChannel((emit) => {
+//     socket.on("orders-new", (New_Order) => {
+//       console.log('socket.on("orders-new")', New_Order);
+//       emit(socketOrderNew(New_Order));
+//     });
+//     socket.on("order-updates", (Order_With_Updated_Status) => {
+//       console.log('socket.on("order-updates")', Order_With_Updated_Status);
+//       emit(socketOrderUpdate(Order_With_Updated_Status));
+//     });
 
-    socket.on("order-delete", (Delete_Order) => {
-      console.log('socket.on("order-delete")', Delete_Order);
-      emit(socketOrderDelete(Delete_Order));
-    });
+//     socket.on("order-delete", (Delete_Order) => {
+//       console.log('socket.on("order-delete")', Delete_Order);
+//       emit(socketOrderDelete(Delete_Order));
+//     });
 
-    socket.on("disconnect", (e) => {
-      console.log("Order Socket", e);
-    });
-    return () => {
-      socket.disconnect();
-    };
-  });
-}
+//     socket.on("disconnect", (e) => {
+//       console.log("Order Socket", e);
+//     });
+//     return () => {
+//       socket.disconnect();
+//     };
+//   });
+// }
 
 export const putOrderCurrentDragDrop = (currentdragdrop, orders) => {
   orders.forEach(({ orderNumber, ...data }, index) => {

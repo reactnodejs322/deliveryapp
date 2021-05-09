@@ -53,6 +53,7 @@ describe("StoreList component render", () => {
   it("should render storelist", () => {
     const initialState = {
       stores: { stores: stores },
+      user: { currentUser: { displayName: "Mocked_User_Name" } },
     };
 
     expect(mapStateToProps(initialState).stores.length).toEqual(4);
@@ -60,6 +61,7 @@ describe("StoreList component render", () => {
     renderWithState(
       <StoreList
         stores={stores}
+        displayName={"Mocked_User_Name"}
         fetchApiStoreListUseEffect={mockFetchCollectionsStart}
       />,
       { initialState }

@@ -71,7 +71,7 @@ export const Orders = ({
             const orders = column.orderIds.map(
               (orderIds) => currentdragdrop.orders[orderIds]
             );
-           
+
             if (column.id === "column-1") {
               return (
                 <ContainerOrder key={index}>

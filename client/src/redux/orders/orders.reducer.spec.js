@@ -16,6 +16,7 @@ describe("Order Reducer", () => {
       storename: "",
     },
     drivers_with_orders: [],
+    updated_status_order: {},
   };
   it("should return default state", () => {
     const newState = ordersReducer(undefined, {});
@@ -45,19 +46,24 @@ describe("Order Reducer", () => {
       payload: mockPayload,
     });
 
-    //we mimick the returned object from the reducer by calling the functions from utlis
+    // //we mimick the returned object from the reducer by calling the functions from utlis
     const mockOperations = {
       ...defaultState,
       apiorders: mockPayload.orders,
       dragdropcollection: addDragDropToCollection(
         defaultState.dragdropcollection,
+        defaultState.currentdragdrop,
         mockPayload
       ),
       currentdragdrop: getCurrentDragandDrop(
         defaultState.dragdropcollection,
+        defaultState.currentdragdrop,
         mockPayload
       ),
+      drivers_with_orders: [],
+      updated_status_order: {},
     };
+
     expect(newState).toEqual(mockOperations);
   });
 });

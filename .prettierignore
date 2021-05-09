@@ -1,0 +1,52 @@
+#SERVER
+node_modules
+server/node_modules
+server/.pnp
+server/.pnp.js
+
+server/.env
+
+# testing
+server/coverage
+
+
+# misc
+server/.DS_Store
+server/.env.local
+server/.env.development.local
+server/.env.test.local
+server/.env.production.local
+
+server/npm-debug.log*
+server/yarn-debug.log*
+server/yarn-error.log*
+
+server/.eslintcache
+
+
+#CLIENT
+client/node_modules
+client/.pnp
+client/.pnp.js
+client/package-lock.json
+client/public/*
+client/.env
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+client/.DS_Store
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+client/package.lock.json
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+client/.eslintcache
