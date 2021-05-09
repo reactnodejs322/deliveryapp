@@ -10,7 +10,6 @@ import PrivateRoute from "./components/private-route/private-route.component";
 import "./App.styles.scss";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
-import SnakbarComponent from "./components/snackbar/snakbar.component";
 
 const Authentication = lazy(
   () => import("./pages/authentication/authentication.component")
@@ -32,20 +31,19 @@ const App = ({ checkUserSession, currentUser }: AppProps) => {
   }, [checkUserSession]);
 
   return (
-    <div className='App'>
+    <div className="App">
       {currentUser !== null ? <NavBar currentUser={currentUser} /> : null}
-      <SnakbarComponent />
       <Switch>
         <Suspense fallback={<Spinner />}>
-          <PrivateRoute path='/missioncontrol' component={MissionControl} />
-          <PrivateRoute path='/settings' component={UserSettings} />
+          <PrivateRoute path="/missioncontrol" component={MissionControl} />
+          <PrivateRoute path="/settings" component={UserSettings} />
 
           <Route
             exact
-            path='/'
+            path="/"
             render={() =>
               currentUser ? (
-                <Redirect to='/missioncontrol' />
+                <Redirect to="/missioncontrol" />
               ) : (
                 <Authentication />
               )

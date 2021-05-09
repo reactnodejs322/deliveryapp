@@ -1,10 +1,11 @@
+import { driversSagas } from "./drivers.saga";
 import DriversActionTypes from "./drivers.types";
 
 const INITIAL_STATE = {
   ActiveMovingDriver: [],
   currentDrivers: [],
   justadded: undefined,
-  disconnectedDriver: undefined,
+  disconnectedDriver: [],
   disconnectTrigger: false,
   position: {},
   show_drivers_or_stores_panel: false,
@@ -46,7 +47,7 @@ const driverReducer = (state = INITIAL_STATE, action) => {
         currentDrivers: state.currentDrivers.filter(
           (driver) => driver.employeeId !== action.payload
         ),
-        disconnectedDriver: action.payload,
+        disconnectedDriver: [...driversSagas, action.payload],
         disconnectTrigger: !state.disconnectTrigger,
       };
 
