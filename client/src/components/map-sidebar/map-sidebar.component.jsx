@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
 
@@ -25,6 +25,8 @@ import SaveModalButton from "../save-modal-button/save-modal-button.component";
 import StoreList from "../store-list/store-list.component";
 import Orders from "../drag-drop-orders/orders.component";
 import AllApiOrders from "../all-orders/all-orders.component";
+import Snackbar from "../Snackbar/Snackbar";
+
 //Assets
 import arrow from "./arrow.png";
 
@@ -40,7 +42,7 @@ Orders: conditionally
 export const MapSideBar = ({
   socketOff,
   clearActiveDriver,
-
+  disconnectedDriver,
   ...props
 }) => {
   //state
@@ -66,9 +68,9 @@ export const MapSideBar = ({
   const handleOpenArrowModal = () => {
     openArrowModal(true);
   };
-
   return (
     <div className="map-side-container">
+      <Snackbar />
       <Map />
       {/* 
        If Manager does click a store then socket=true  then dynamic driver loads with showorders being false
@@ -176,6 +178,7 @@ const mapStateToProps = (state) => ({
   unassigned_orders: state.orders.currentdragdrop.columns["column-1"].orderIds,
   show_drivers_or_stores_panel: state.drivers.show_drivers_or_stores_panel,
   showorders: state.orders.showorders,
+  disconnectedDriver: state.drivers.disconnectedDriver,
 });
 
 const mapDispatchToProps = (dispatch) => ({
