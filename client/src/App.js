@@ -5,10 +5,13 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import NavBar from "./components/navbar/navbar.component";
+import Tutorial from "./components/tutorial/tutorial.component";
 import PrivateRoute from "./components/private-route/private-route.component";
 import "./App.styles.scss";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import { selectTutorial } from "./redux/tutorial/tutorial.selectors";
 import { checkUserSession } from "./redux/user/user.actions";
+import { STATES } from "mongoose";
 
 const Authentication = lazy(() =>
   import("./pages/Authentication/authentication.component")
@@ -20,13 +23,17 @@ const UserSettings = lazy(() =>
   import("./pages/user-settings/user-settings.component")
 );
 
-const App = ({ checkUserSession, currentUser }) => {
+const App = ({ checkUserSession, currentUser, tutorial }) => {
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
+
+  console.log(tutorial);
+
   return (
     <div className="App">
       {currentUser !== null ? <NavBar currentUser={currentUser} /> : null}
+      {currentUser && !tutorial ? <Tutorial /> : null}
 
       <Switch>
         {/*Note without caching user session with redux persesit  it will bug up
@@ -55,6 +62,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  tutorial: selectTutorial,
 });
 
 const mapDispatchToProps = (dispatch) => ({

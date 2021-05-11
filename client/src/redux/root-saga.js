@@ -4,6 +4,7 @@ import { storeSagas } from "./stores/stores.saga";
 import { socketSagas } from "./socket/socket.saga";
 import { ordersSagas } from "./orders/orders.saga";
 import { userSagas } from "./user/user.saga";
+import { tutorialSagas } from "./tutorial/tutorial.saga";
 export default function* rootSaga() {
   //Similiar to compose all the sagas
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     call(socketSagas),
     call(ordersSagas),
     call(userSagas),
+    call(tutorialSagas),
   ]);
 }
