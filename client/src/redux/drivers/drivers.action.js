@@ -26,3 +26,7 @@ export const showDriverPanel = () => ({
 export const showStorePanel = () => ({
   type: DriversActionTypes.SHOW_STORE_PANEL,
 });
+
+export const clearDisconnectSnackbar = () => ({
+  type: DriversActionTypes.CLEAR_DISCONNECT_SNACKBAR,
+});

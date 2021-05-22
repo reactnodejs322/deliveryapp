@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   disconnectTrigger: false,
   position: {},
   show_drivers_or_stores_panel: false,
+  disconnect_snackbar: undefined,
 };
 
 const driverReducer = (state = INITIAL_STATE, action) => {
@@ -38,14 +39,21 @@ const driverReducer = (state = INITIAL_STATE, action) => {
         currentDrivers: action.payload,
         justadded: justadded,
       };
-
+    case DriversActionTypes.CLEAR_DISCONNECT_SNACKBAR:
+      return {
+        ...state,
+        disconnect_snackbar: undefined,
+      };
     case DriversActionTypes.REMOVE_ACTIVE_DRIVER:
       return {
         ...state,
-
         currentDrivers: state.currentDrivers.filter(
           (driver) => driver.employeeId !== action.payload
         ),
+        disconnect_snackbar: {
+          disconnectedDriver: action.payload,
+          disconnectTrigger: !state.disconnectTrigger,
+        },
         disconnectedDriver: action.payload,
         disconnectTrigger: !state.disconnectTrigger,
       };

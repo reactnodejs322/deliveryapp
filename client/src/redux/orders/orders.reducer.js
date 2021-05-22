@@ -268,8 +268,6 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
       };
     //when a driver disconnects
     case OrdersActionTypes.REMOVE_DRIVER_FROM_DRAG_AND_DROP:
-      console.log(state.currentdragdrop);
-      console.log(action.payload);
       const NewDriver = removeDriverFromDragAndDrop(
         state.currentdragdrop,
         action.payload
