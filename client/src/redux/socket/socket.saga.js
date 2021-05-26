@@ -8,10 +8,14 @@ export const getUserOnClickStore = (state) => state.stores.connectedStore;
 
 export function* setSocket() {
   const connectedStore = yield select(getUserOnClickStore);
-  const socket = yield call(Connect_To_Socket_With_StoreId, {
-    storeId: connectedStore.storeId,
-  });
-  yield put(socketOn(socket));
+  try {
+    const socket = yield call(Connect_To_Socket_With_StoreId, {
+      storeId: connectedStore.storeId,
+    });
+    yield put(socketOn(socket));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function* onSetSocket() {

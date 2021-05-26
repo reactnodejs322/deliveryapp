@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   disconnectTrigger: false,
   position: {},
   show_drivers_or_stores_panel: false,
+  disconnect_snackbar: undefined,
 };
 
 const driverReducer = (state = INITIAL_STATE, action) => {
@@ -24,28 +25,30 @@ const driverReducer = (state = INITIAL_STATE, action) => {
       };
 
     case DriversActionTypes.CURRENT_CONNECTED_DRIVER:
-      let justadded = {};
-      if (state.currentDrivers) {
-        if (state.currentDrivers.length === 0) {
-          justadded = action.payload[0];
-        } else {
-          justadded = action.payload[action.payload.length - 1];
-        }
-      }
+      //because driver is cached we need to reinput currentDriver
+      if (state.currentDrivers === undefined)
+        return { ...state, currentDrivers: [action.payload] };
 
       return {
         ...state,
-        currentDrivers: action.payload,
-        justadded: justadded,
+        currentDrivers: [...state.currentDrivers, action.payload],
+        justadded: action.payload,
       };
-
+    case DriversActionTypes.CLEAR_DISCONNECT_SNACKBAR:
+      return {
+        ...state,
+        disconnect_snackbar: undefined,
+      };
     case DriversActionTypes.REMOVE_ACTIVE_DRIVER:
       return {
         ...state,
-
         currentDrivers: state.currentDrivers.filter(
-          (driver) => driver.employeeId !== action.payload
+          (driver) => driver.id !== action.payload
         ),
+        disconnect_snackbar: {
+          disconnectedDriver: action.payload,
+          disconnectTrigger: !state.disconnectTrigger,
+        },
         disconnectedDriver: action.payload,
         disconnectTrigger: !state.disconnectTrigger,
       };

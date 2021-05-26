@@ -8,5 +8,7 @@ export const DriversActionTypes = {
   SHOW_DRIVER_PANEL: "SHOW_DRIVER_PANEL",
   // when clicking disconnect button SHOW_STORE_PANE
   SHOW_STORE_PANEL: "SHOW_STORE_PANEL",
+  //FOR CLEARING THE SNACKBAR
+  CLEAR_DISCONNECT_SNACKBAR: "CLEAR_DISCONNECT_SNACKBAR",
 };
 export default DriversActionTypes;

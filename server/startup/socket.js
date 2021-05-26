@@ -84,9 +84,9 @@ module.exports = async function (io) {
 
             rooms[user.store].users[user.id] = user.role;
 
-            socket
-              .to(user.store)
-              .broadcast.emit("current-users", rooms[user.store]);
+            //its better to give single driver instead of all drivers so user will be given
+
+            socket.to(user.store).broadcast.emit("current-users", user);
 
             console.log(
               `Socket:`,
