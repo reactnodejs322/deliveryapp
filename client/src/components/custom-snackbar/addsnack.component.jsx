@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from "react";
 
 const AddSnack = ({ children, changeTrigger }) => {
-  //     const [state, setstate] = useState([]);
-  //     const add = () => {
+  const [state, setstate] = useState([]);
+  //adding
 
-  //     }
-  //     const remove = () => {
+  useEffect(() => {
+    // console.log("adding");
+    //
+    if (children.props.children.props.disconnect_snackbar) {
+      setstate((state) => {
+        return [...state, children];
+      });
+    }
+  }, [changeTrigger, children]);
+  // removing
+  useEffect(() => {
+    if (state.length === 3 + 1) {
+      // let newState = [...state];
+      // newState.pop();
+      setstate([]);
+    }
+  }, [state]);
+  // console.log("state", state);
 
-  //     }
-  //   useEffect(() => {
-  //       if (state.length === 3) {
-  //           remove();
-  //       } else {
-  //           add()
-  //      }
-
-  //   }, [changeTrigger,remove,add,state]);
-  //   console.log(state);
-  return children;
+  return (
+    <div>
+      {state.map((e, index) => {
+        return <div key={index.toString()}>{e}</div>;
+      })}
+    </div>
+  );
 };
-
+/*
+ {state.map((e, index) => {
+        return <div key={index.toString()}>{e}</div>;
+      })}
+*/
 export default AddSnack;

@@ -109,24 +109,18 @@ export function* setupOrderDragDrop() {
 //get drivers
 const getDriverFromReducer = (state) => state.drivers.currentDrivers;
 
-export function* initalizeDriverDragAndDrop() {
+export function* initalizeDriverDragAndDrop({ payload }) {
+  console.log(payload);
   const driver = yield select(getDriverFromReducer);
+
   const storename = yield select(getStoreNameFromReducer);
   yield put(deltaDriverDragAndDrop({ driver: driver, storename: storename }));
 }
 
-const getRemovedDriverFromReducer = (state) => state.drivers.disconnectedDriver;
-export function* RemoveDriverDragAndDrop() {
-  const RemoveDriver = yield select(getRemovedDriverFromReducer);
-
-  // we want the latest drivers in the currentdragdrop object
-  // we do not want it from the orders reducer because that would be old state
-  // so we want the LATEST DATA currentdrivers from driver reducer
-  const drivers = yield select(getDriverFromReducer);
-  // console.log(RemoveDriver);
-  yield put(
-    removeDriverDragDrop({ currentdrivers: drivers, remove: RemoveDriver })
-  );
+// const getRemovedDriverFromReducer = (state) => state.drivers.disconnectedDriver;
+export function* RemoveDriverDragAndDrop({ payload }) {
+  console.log(payload);
+  yield put(removeDriverDragDrop({ remove: payload }));
 }
 
 //Start the order socket when a manager hits any store button

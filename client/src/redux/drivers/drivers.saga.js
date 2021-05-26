@@ -31,6 +31,7 @@ export const getSocket = (state) => state.socket.socket; //socket is an Object
 /* driverSocketFlow deals with driver socket operations */
 export function* driverSocketFlow() {
   /* We can pull state from other reducers using redux saga library select method */
+
   const socket = yield select(getSocket);
 
   /* Yield represents that we are waiting for an action to be called so

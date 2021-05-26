@@ -268,6 +268,8 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
       };
     //when a driver disconnects
     case OrdersActionTypes.REMOVE_DRIVER_FROM_DRAG_AND_DROP:
+      // console.log("removeDriverFromDragAndDrop", action.payload);
+      console.log("REMOVE_DRIVER_FROM_DRAG_DROP", action.payload);
       const NewDriver = removeDriverFromDragAndDrop(
         state.currentdragdrop,
         action.payload
@@ -289,11 +291,11 @@ const ordersReducer = (state = INITIAL_STATE, action) => {
       };
     // when you press the save button :)
     case OrdersActionTypes.SAVE_ORDER:
-      console.log(
-        state.currentdragdrop.columns,
-        " ",
-        state.currentdragdrop.orders
-      );
+      // console.log(
+      //   state.currentdragdrop.columns,
+      //   " ",
+      //   state.currentdragdrop.orders
+      // );
       return {
         ...state,
         drivers_with_orders: getDriverWithOrders(

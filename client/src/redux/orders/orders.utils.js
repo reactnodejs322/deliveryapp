@@ -40,6 +40,14 @@ we generate a newDragAndDrop and add it to draganddrop collectio*/
 //   });
 // }
 
+export const fetchOrders = () => {
+  var CancelToken = axios.CancelToken;
+  var { token } = CancelToken.source();
+  return axios
+    .get("/api/orders/", { cancelToken: token })
+    .then((res) => res.data);
+};
+
 export const putOrderCurrentDragDrop = (currentdragdrop, orders) => {
   orders.forEach(({ orderNumber, ...data }, index) => {
     currentdragdrop.orders[orderNumber.toString()] = {
@@ -194,6 +202,16 @@ export const saveDragDropCollection = (dragdropcollection, NewDragDropData) => {
       : dragdrop
   );
 };
+//ACTION TYPE FOR "DELTA_DRIVER_FOR_DRAG_AND_DROP"
+export const deltaDriverDragDrop = (currentdragdrop, incoming_driver) => {
+  //Check if a driver was added or removed
+  currentdragdrop = addDriver(incoming_driver, currentdragdrop);
+  currentdragdrop = removeDriver(incoming_driver, currentdragdrop);
+  return {
+    ...currentdragdrop,
+    currentdriver: [...incoming_driver],
+  };
+};
 //FUNCTION FOR ACTION TYPE FOR "DELTA_DRIVER_FOR_DRAG_AND_DROP"
 export const addDriver = (drivers, currentdragdrop) => {
   /*drivers                       = [{employeeId: 4545'}]
@@ -203,11 +221,7 @@ export const addDriver = (drivers, currentdragdrop) => {
   because both drivers and currentdriver contain [{employeeId: 4545'}]
 
   the output is [{employeeId:'5578'},{employeeId::"8954"}]*/
-  const add_driver = differenceBy(
-    drivers,
-    currentdragdrop.currentdriver,
-    "employeeId"
-  );
+  const add_driver = differenceBy(drivers, currentdragdrop.currentdriver, "id");
 
   /*We iterate through the addDriver the drivers that were just added
   and create new KEYS and VALUES for currentdragdrop object
@@ -217,16 +231,14 @@ export const addDriver = (drivers, currentdragdrop) => {
   columns: {5578: {…}, 8954: {…}, column-1: {…}} <- drivers to be added
   }
   */
-  add_driver.forEach(
-    ({ employeeId, ...the_rest_of_the_object_data_without_employeeid }) => {
-      currentdragdrop.columns[employeeId.toString()] = {
-        id: employeeId.toString(),
-        orderIds: [],
-        ...the_rest_of_the_object_data_without_employeeid,
-      };
-      currentdragdrop.columnOrder.push(employeeId.toString());
-    }
-  );
+  add_driver.forEach(({ id, ...the_rest_of_the_object_data_without_id }) => {
+    currentdragdrop.columns[id.toString()] = {
+      id: id.toString(),
+      orderIds: [],
+      ...the_rest_of_the_object_data_without_id,
+    };
+    currentdragdrop.columnOrder.push(id.toString());
+  });
   return currentdragdrop;
 };
 //FUNCTION FOR ACTION TYPE FOR "DELTA_DRIVER_FOR_DRAG_AND_DROP"
@@ -234,7 +246,7 @@ export const removeDriver = (drivers, currentdragdrop) => {
   const removedriver = differenceBy(
     currentdragdrop.currentdriver,
     drivers,
-    "employeeId"
+    "id"
   );
 
   // if there's nothing to remove we just return the currentdragdrop
@@ -243,12 +255,10 @@ export const removeDriver = (drivers, currentdragdrop) => {
   let restoreOrdersIds = []; //retore the ids back to the Order Column
   let deletedriver = []; //update the order column
 
-  removedriver.forEach(({ employeeId }) => {
-    deletedriver.push(employeeId.toString());
-    restoreOrdersIds.push(
-      currentdragdrop.columns[employeeId.toString()].orderIds
-    );
-    delete currentdragdrop.columns[employeeId.toString()];
+  removedriver.forEach(({ id }) => {
+    deletedriver.push(id.toString());
+    restoreOrdersIds.push(currentdragdrop.columns[id.toString()].orderIds);
+    delete currentdragdrop.columns[id.toString()];
   });
 
   // filter to remove a number in an array
@@ -267,17 +277,6 @@ export const removeDriver = (drivers, currentdragdrop) => {
   return currentdragdrop;
 };
 
-//ACTION TYPE FOR "DELTA_DRIVER_FOR_DRAG_AND_DROP"
-export const deltaDriverDragDrop = (currentdragdrop, incoming_driver) => {
-  //Check if a driver was added or removed
-  currentdragdrop = addDriver(incoming_driver, currentdragdrop);
-  currentdragdrop = removeDriver(incoming_driver, currentdragdrop);
-  return {
-    ...currentdragdrop,
-    currentdriver: [...incoming_driver],
-  };
-};
-
 // ACTION TYPE FOR REMOVE_DRIVER_FROM_DRAG_AND_DROP  when driver disconnects
 // update the drag and drop
 export const removeDriverFromDragAndDrop = (
@@ -288,11 +287,13 @@ export const removeDriverFromDragAndDrop = (
   dragdrop.columnOrder = dragdrop.columnOrder.filter(
     (item) => item !== remove.toString()
   );
+
   let restoreOrder = dragdrop.columns[remove.toString()].orderIds; //grab the removed driver orderids
   dragdrop.columns["column-1"].orderIds = dragdrop.columns[
     "column-1"
   ].orderIds.concat(restoreOrder);
   delete dragdrop.columns[remove.toString()];
+
   return dragdrop;
 };
 
@@ -338,12 +339,4 @@ export const removeorderfromDriver = (for_deletion, currentdragdrop) => {
   currentdragdrop.columns["column-1"].orderIds.push(for_deletion._id);
   //return a new object because ui needs  to detect changes in memory
   return { ...currentdragdrop };
-};
-
-export const fetchOrders = () => {
-  var CancelToken = axios.CancelToken;
-  var { token } = CancelToken.source();
-  return axios
-    .get("/api/orders/", { cancelToken: token })
-    .then((res) => res.data);
 };

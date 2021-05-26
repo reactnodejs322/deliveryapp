@@ -1,6 +1,7 @@
 import React from "react";
 import CustomSnackbar from "./custom-snackbar.component";
 import AddSnack from "./addsnack.component";
+
 const MultipleSnackBar = ({
   maxSnack,
   autoHideDuration,

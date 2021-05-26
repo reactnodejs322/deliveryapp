@@ -173,7 +173,8 @@ export const MapSideBar = ({
 
 const mapStateToProps = (state) => ({
   apiorders: state.orders.apiorders,
-  unassigned_orders: state.orders.currentdragdrop.columns["column-1"].orderIds,
+  unassigned_orders: state.orders.currentdragdrop.columns["column-1"],
+
   show_drivers_or_stores_panel: state.drivers.show_drivers_or_stores_panel,
   showorders: state.orders.showorders,
 });

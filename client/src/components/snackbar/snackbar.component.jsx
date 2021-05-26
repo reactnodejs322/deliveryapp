@@ -8,6 +8,7 @@ import { clearDisconnectSnackbar } from "../../redux/drivers/drivers.action";
 //You must make sure props start of as undefined or null
 
 export const Snackbar = ({ disconnect_snackbar, clearDisconnectSnackbar }) => {
+  console.log(disconnect_snackbar);
   /*
   By traversing through different pages clearing the snackbar and going back to the page wont show
   the snackbar again unless it's being triggered again
